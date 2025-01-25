@@ -5,6 +5,8 @@ extends Node3D
 @onready var mesh = $MeshInstance3D
 @onready var ray = $RayCast3D
 
+signal give_stat (stat_type: int)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -18,3 +20,7 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	print("queue freed")
 	queue_free()
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	pass # Replace with function body.

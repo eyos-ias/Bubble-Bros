@@ -1,10 +1,11 @@
 [gd_scene load_steps=19 format=3 uid="uid://dqd1uulboadvp"]
 
 [ext_resource type="Texture2D" uid="uid://0pfy6ygjnslr" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_4ar7c"]
+[ext_resource type="Script" path="res://levels/initial_level.gd" id="1_dykig"]
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_cmry6"]
+[ext_resource type="Texture2D" uid="uid://cwe2q0y3sa1kj" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_wdu82"]
 [ext_resource type="PackedScene" uid="uid://8wl0i5pu5lgl" path="res://scenes/bubble.tscn" id="3_0ss30"]
-[ext_resource type="Shader" path="res://addons/nojoule-energy-shield/shield.gdshader" id="4_jncsd"]
-[ext_resource type="Texture2D" uid="uid://dnqegf8mxqli" path="res://addons/nojoule-energy-shield/shield_noise.tres" id="5_tblml"]
+[ext_resource type="Texture2D" uid="uid://f48a1prjfltp" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="5_0vgix"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5j7kv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,8 +20,12 @@ sky = SubResource("Sky_fgg53")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux01q"]
+albedo_texture = ExtResource("2_wdu82")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8au"]
 albedo_texture = ExtResource("1_4ar7c")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_h1xei"]
@@ -30,93 +35,56 @@ size = Vector3(30, 1, 30)
 [sub_resource type="BoxShape3D" id="BoxShape3D_y0jtv"]
 size = Vector3(30, 1, 30)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qd4a"]
-render_priority = 0
-shader = ExtResource("4_jncsd")
-shader_parameter/_quantization = true
-shader_parameter/_steps_quantization = 5
-shader_parameter/_object_scale = 1.0
-shader_parameter/_object_size = 1.1
-shader_parameter/_only_on_wave_visibility = false
-shader_parameter/_start_falloff_visibility = 0.5
-shader_parameter/_end_falloff_visibility = 0.3
-shader_parameter/_time_multiplier_activation = 1.0
-shader_parameter/_distance_multiplier_activation = 1.0
-shader_parameter/_width_time_activation = 1.0
-shader_parameter/_enable_highlight_intersection = true
-shader_parameter/_width_highlight_intersection = 1.0
-shader_parameter/_speed_noise = Vector2(0.02, 0.02)
-shader_parameter/_noise_texture = ExtResource("5_tblml")
-shader_parameter/_origin_generate = Vector3(0, 0.5, 0)
-shader_parameter/_relative_origin_generate = true
-shader_parameter/_time_generate = 1.0
-shader_parameter/_thickness_generate = 0.25
-shader_parameter/_collapse = false
-shader_parameter/_color_shield = Color(1, 1, 1, 1)
-shader_parameter/_color_brightness_shield = 15.0
-shader_parameter/_intensity_shield = 3.0
-shader_parameter/glow_enabled = true
-shader_parameter/glow_strength = 1.0
-shader_parameter/_active_static = true
-shader_parameter/_origin_static = Vector3(0.4, 0.4, 0)
-shader_parameter/_speed_static = 0.4
-shader_parameter/_frequency_static = 10.0
-shader_parameter/_amplitude_static = 0.05
-shader_parameter/_normal_amplitude_static = 0.05
-shader_parameter/_effect_radius_static = 2.0
-shader_parameter/_active_static_offset_hl = false
-shader_parameter/_strength_static_offset_hl = 1.0
-shader_parameter/_intensity_static_offset_hl = 5.0
-shader_parameter/_origin_impact = PackedVector3Array(0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/_time_impact = PackedFloat32Array(0, 0, 0, 0, 0)
-shader_parameter/_frequency_impact = 20.0
-shader_parameter/_waves_impact = 0.0
-shader_parameter/_fade_waves_impact = 2.0
-shader_parameter/_amplitude_impact = 0.05
-shader_parameter/_normal_amplitude_impact = 0.05
-shader_parameter/_radius_impact = 1.0
-shader_parameter/_active_impact_offset_hl = true
-shader_parameter/_strength_impact_offset_hl = 1.0
-shader_parameter/_intensity_impact_offset_hl = 5.0
-shader_parameter/_active_border = false
-shader_parameter/_intensity_border = 2.0
-shader_parameter/_percentage_border = 0.1
-shader_parameter/_show_normals = false
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ke4qa"]
+albedo_texture = ExtResource("5_0vgix")
+emission_enabled = true
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
 
-[sub_resource type="SphereMesh" id="SphereMesh_kscpq"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_8qd4a")
-rings = 256
+[sub_resource type="BoxMesh" id="BoxMesh_yea7f"]
+material = SubResource("StandardMaterial3D_ke4qa")
+size = Vector3(30, 14, 1)
 
-[sub_resource type="Curve" id="Curve_gv8lp"]
-resource_local_to_scene = true
-resource_name = "animation_curve"
-_data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="Animation" id="Animation_2d6m6"]
+resource_name = "BubbleHitFlash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.25116, 0.463996, 0.237494, 1), Color(0, 0, 0, 1)]
+}
 
-[sub_resource type="SphereMesh" id="SphereMesh_fvtd0"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_8qd4a")
-rings = 256
+[sub_resource type="Animation" id="Animation_ijymp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
-[sub_resource type="Curve" id="Curve_wg5hx"]
-resource_local_to_scene = true
-resource_name = "animation_curve"
-_data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="SphereMesh" id="SphereMesh_5texj"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_8qd4a")
-rings = 256
-
-[sub_resource type="Curve" id="Curve_jp30s"]
-resource_local_to_scene = true
-resource_name = "animation_curve"
-_data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_81p4q"]
+_data = {
+"BubbleHitFlash": SubResource("Animation_2d6m6"),
+"RESET": SubResource("Animation_ijymp")
+}
 
 [node name="InitialLevel" type="Node3D"]
+script = ExtResource("1_dykig")
+bubble_scene = ExtResource("3_0ss30")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ilqkr")
@@ -130,27 +98,32 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_ux01q")
 mesh = SubResource("BoxMesh_h1xei")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_y0jtv")
 
 [node name="Character" parent="." instance=ExtResource("2_cmry6")]
-
-[node name="ShieldSphere2" parent="." instance=ExtResource("3_0ss30")]
-transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, 0, 1.44282, -8.32345)
-mesh = SubResource("SphereMesh_kscpq")
-animation_curve = SubResource("Curve_gv8lp")
-
-[node name="ShieldSphere4" parent="." instance=ExtResource("3_0ss30")]
-transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, -4.68307, 1.44282, -8.32345)
-mesh = SubResource("SphereMesh_fvtd0")
-animation_curve = SubResource("Curve_wg5hx")
-
-[node name="ShieldSphere3" parent="." instance=ExtResource("3_0ss30")]
-transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, 5.02141, 1.44282, -8.32345)
-mesh = SubResource("SphereMesh_5texj")
-animation_curve = SubResource("Curve_jp30s")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.52077, -0.751054)
+immobile = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12877, -14.9123)
+mesh = SubResource("BoxMesh_yea7f")
+
+[node name="BubbleSpawnTimer" type="Timer" parent="."]
+wait_time = 1.6
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137639, 6.47502, -13.9051)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_81p4q")
+}
+
+[connection signal="timeout" from="BubbleSpawnTimer" to="." method="_on_bubble_spawn_timer_timeout"]
