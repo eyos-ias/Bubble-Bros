@@ -125,6 +125,8 @@ func shoot_bullet():
 	# 	get_parent().add_child(bullet_instance)
 	# 	canShoot = false
 	# 	shootTimer.start()
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
 
 func _ready():
 	#It is safe to comment this line if your game doesn't start with the mouse captured

@@ -19,6 +19,7 @@ data = PackedVector3Array(-0.025, 0.025, 0.5, 0.025, 0.025, 0.5, -0.025, -0.025,
 
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_bddeg")
+SPEED = 60.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 cast_shadow = 0

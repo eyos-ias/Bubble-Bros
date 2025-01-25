@@ -23,13 +23,13 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux01q"]
 albedo_texture = ExtResource("2_wdu82")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8au"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5homw"]
 albedo_texture = ExtResource("1_4ar7c")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_h1xei"]
-material = SubResource("StandardMaterial3D_np8au")
+material = SubResource("StandardMaterial3D_5homw")
 size = Vector3(30, 1, 30)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y0jtv"]
@@ -112,7 +112,7 @@ immobile = true
 transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12877, -14.9123)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12877, -15.5825)
 mesh = SubResource("BoxMesh_yea7f")
 
 [node name="BubbleSpawnTimer" type="Timer" parent="."]
