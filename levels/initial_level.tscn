@@ -120,5 +120,15 @@ transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, 0, 1.44282, -8.32
 mesh = SubResource("SphereMesh_kscpq")
 animation_curve = SubResource("Curve_gv8lp")
 
+[node name="ShieldSphere4" parent="." instance=ExtResource("3_0ss30")]
+transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, -4.68307, 1.44282, -8.32345)
+mesh = SubResource("SphereMesh_kscpq")
+animation_curve = SubResource("Curve_gv8lp")
+
+[node name="ShieldSphere3" parent="." instance=ExtResource("3_0ss30")]
+transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, 5.02141, 1.44282, -8.32345)
+mesh = SubResource("SphereMesh_kscpq")
+animation_curve = SubResource("Curve_gv8lp")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)

@@ -115,6 +115,7 @@ func shoot_bullet():
 		bullet_instance.global_transform = bulletSpawner.global_transform
 		get_parent().add_child(bullet_instance)
 		canShoot = false
+		gun.get_node("AnimationPlayer").play("shoot")
 		shootTimer.start()
 	## use this if the gun is the parent
 	# if bullet_scene and canShoot:

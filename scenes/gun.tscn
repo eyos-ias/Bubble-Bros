@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cxjmdduxhbcjj"]
+[gd_scene load_steps=15 format=4 uid="uid://cxjmdduxhbcjj"]
 
 [ext_resource type="Script" path="res://scenes/gun.gd" id="1_ifd53"]
 
@@ -146,15 +146,82 @@ metallic = 1.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0yt6"]
 albedo_color = Color(0.306923, 0.306923, 0.306923, 1)
 
+[sub_resource type="Animation" id="Animation_0s8sd"]
+resource_name = "shoot"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Revolver_4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.75452, -0.404554, 0), Vector3(-2.08145, -0.404554, -1.42906e-08), Vector3(-1.75452, -0.404554, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Revolver_4:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(-1.32361, -1.5708, 1.5708), Vector3(-1.5708, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i0bg1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Revolver_4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.75452, -0.404554, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Revolver_4:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8hg6e"]
+_data = {
+"RESET": SubResource("Animation_i0bg1"),
+"shoot": SubResource("Animation_0s8sd")
+}
+
 [node name="Gun" type="Node3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_ifd53")
 
 [node name="Revolver_4" type="MeshInstance3D" parent="."]
-transform = Transform3D(17.8148, 0, 0, 0, -2.12369e-06, 17.8148, 0, -17.8148, -2.12369e-06, -1.75452, -0.404554, 0)
+transform = Transform3D(17.8148, 0, 0, 0, -7.78709e-07, 17.8148, 0, -17.8148, -7.78709e-07, -1.75452, -0.404554, 0)
 mesh = SubResource("ArrayMesh_eehgl")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_0g8m6")
 surface_material_override/1 = SubResource("StandardMaterial3D_mgp0u")
 surface_material_override/2 = SubResource("StandardMaterial3D_avsea")
 surface_material_override/3 = SubResource("StandardMaterial3D_k0yt6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8hg6e")
+}
