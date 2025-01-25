@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqd1uulboadvp"]
+[gd_scene load_steps=19 format=3 uid="uid://dqd1uulboadvp"]
 
 [ext_resource type="Texture2D" uid="uid://0pfy6ygjnslr" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_4ar7c"]
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_cmry6"]
@@ -94,6 +94,28 @@ resource_name = "animation_curve"
 _data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="SphereMesh" id="SphereMesh_fvtd0"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_8qd4a")
+rings = 256
+
+[sub_resource type="Curve" id="Curve_wg5hx"]
+resource_local_to_scene = true
+resource_name = "animation_curve"
+_data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_5texj"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_8qd4a")
+rings = 256
+
+[sub_resource type="Curve" id="Curve_jp30s"]
+resource_local_to_scene = true
+resource_name = "animation_curve"
+_data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="InitialLevel" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -122,13 +144,13 @@ animation_curve = SubResource("Curve_gv8lp")
 
 [node name="ShieldSphere4" parent="." instance=ExtResource("3_0ss30")]
 transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, -4.68307, 1.44282, -8.32345)
-mesh = SubResource("SphereMesh_kscpq")
-animation_curve = SubResource("Curve_gv8lp")
+mesh = SubResource("SphereMesh_fvtd0")
+animation_curve = SubResource("Curve_wg5hx")
 
 [node name="ShieldSphere3" parent="." instance=ExtResource("3_0ss30")]
 transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, 5.02141, 1.44282, -8.32345)
-mesh = SubResource("SphereMesh_kscpq")
-animation_curve = SubResource("Curve_gv8lp")
+mesh = SubResource("SphereMesh_5texj")
+animation_curve = SubResource("Curve_jp30s")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)

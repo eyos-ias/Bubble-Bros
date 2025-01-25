@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=4 uid="uid://cxjmdduxhbcjj"]
+[gd_scene load_steps=18 format=4 uid="uid://cxjmdduxhbcjj"]
 
 [ext_resource type="Script" path="res://scenes/gun.gd" id="1_ifd53"]
+[ext_resource type="Texture2D" uid="uid://706a8ms7wncp" path="res://textures/explosion_texture.png" id="2_k145j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmx7h"]
 resource_name = "DarkWood"
@@ -146,6 +147,45 @@ metallic = 1.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0yt6"]
 albedo_color = Color(0.306923, 0.306923, 0.306923, 1)
 
+[sub_resource type="Animation" id="Animation_i0bg1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Revolver_4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.75452, -0.404554, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Revolver_4:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles3D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_0s8sd"]
 resource_name = "shoot"
 length = 0.15
@@ -174,32 +214,17 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(-1.5708, 0, 0), Vector3(-1.32361, -1.5708, 1.5708), Vector3(-1.5708, 0, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_i0bg1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Revolver_4:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles3D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.04),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.75452, -0.404554, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Revolver_4:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.5708, 0, 0)]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8hg6e"]
@@ -208,12 +233,20 @@ _data = {
 "shoot": SubResource("Animation_0s8sd")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5mpen"]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("2_k145j")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_g88xq"]
+
 [node name="Gun" type="Node3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_ifd53")
 
 [node name="Revolver_4" type="MeshInstance3D" parent="."]
-transform = Transform3D(17.8148, 0, 0, 0, -7.78709e-07, 17.8148, 0, -17.8148, -7.78709e-07, -1.75452, -0.404554, 0)
+transform = Transform3D(17.8148, 0, 0, 0, -6.44894e-05, 17.8148, 0, -17.8148, -6.44894e-05, -1.75452, -0.404554, 0)
 mesh = SubResource("ArrayMesh_eehgl")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_0g8m6")
@@ -225,3 +258,15 @@ surface_material_override/3 = SubResource("StandardMaterial3D_k0yt6")
 libraries = {
 "": SubResource("AnimationLibrary_8hg6e")
 }
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0653114, 0.117878, 2.85485e-09)
+material_override = SubResource("StandardMaterial3D_5mpen")
+emitting = false
+amount = 1
+lifetime = 0.15
+one_shot = true
+mesh = SubResource("QuadMesh_g88xq")
+gravity = Vector3(0, 0, -4)
+scale_amount_min = 0.6
+scale_amount_max = 1.3
