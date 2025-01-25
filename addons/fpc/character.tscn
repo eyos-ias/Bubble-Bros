@@ -448,6 +448,20 @@ value = 50.0
 texture_under = ExtResource("5_5882r")
 texture_progress = ExtResource("6_tjek7")
 
+[node name="Control" type="Control" parent="UserInterface/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -88.0
+offset_right = 152.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+
 [node name="CrouchCeilingDetection" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_k4wwl")

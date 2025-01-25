@@ -71,10 +71,11 @@ var _generating_or_collapsing: bool = false
 ## The material used for the shield, to set the shader parameters. It is
 ## expected to be the specific energy shield shader.
 @onready var material: ShaderMaterial
-
+@onready var destroy_timer := $DestroyTimer
 
 func _ready() -> void:
 	# Initialize the arrays with the default values
+	destroy_timer.start()
 	var filled_elapse_time = [0.0]
 	filled_elapse_time.resize(_MAX_IMPACTS)
 	filled_elapse_time.fill(0.0)
@@ -264,4 +265,9 @@ func _on_area_3d_body_shape_entered(
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	print("bullet detected")
 	if area.is_in_group("bullet"):
+		Global.initial_level.flash_background()
 		queue_free()
+
+
+func _on_destroy_timer_timeout() -> void:
+	queue_free()
