@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://crhwjysc7afhp"]
+
+[ext_resource type="PackedScene" uid="uid://cj313s8wd18x5" path="res://assets/models/gameworld.glb" id="1_mrqca"]
+
+[node name="Map" type="Node3D"]
+
+[node name="gameworld" parent="." instance=ExtResource("1_mrqca")]
