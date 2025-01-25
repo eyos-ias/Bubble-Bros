@@ -2,7 +2,7 @@ extends Node3D
 
 
 @onready var bubble_spawn_timer: Timer = $BubbleSpawnTimer
-@export var bubble_scene : PackedScene
+@export var bubble_scene: PackedScene
 
 @onready var animation_player := $AnimationPlayer
 
@@ -22,7 +22,7 @@ func _on_bubble_spawn_timer_timeout() -> void:
 		var new_bubble = bubble_scene.instantiate()
 		
 		add_child(new_bubble)
-		new_bubble.position = Vector3(randf_range(-10.0, 10.0), randf_range(0.1, 6.5), -14.0)
+		new_bubble.position = Vector3(randf_range(-10.0, 10.0), randf_range(0.1, 6.5), -8.0)
 
 func flash_background():
 	animation_player.play("BubbleHitFlash")

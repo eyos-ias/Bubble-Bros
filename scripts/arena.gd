@@ -25,6 +25,7 @@ func _on_host_pressed() -> void:
 	_add_player()
 	canvas_layer.visible = false
 
+@rpc("any_peer")
 func _add_player(id = 1):
 	var player = player_scene.instantiate()
 	player.name = str(id)

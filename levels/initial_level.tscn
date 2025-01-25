@@ -1,35 +1,32 @@
 [gd_scene load_steps=19 format=3 uid="uid://dqd1uulboadvp"]
 
-[ext_resource type="Texture2D" uid="uid://0pfy6ygjnslr" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_4ar7c"]
 [ext_resource type="Script" path="res://levels/initial_level.gd" id="1_dykig"]
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_cmry6"]
 [ext_resource type="Texture2D" uid="uid://cwe2q0y3sa1kj" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_wdu82"]
 [ext_resource type="PackedScene" uid="uid://8wl0i5pu5lgl" path="res://scenes/bubble.tscn" id="3_0ss30"]
 [ext_resource type="Texture2D" uid="uid://f48a1prjfltp" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="5_0vgix"]
+[ext_resource type="Texture2D" uid="uid://dudbi5o1k85l0" path="res://assets/controls/Helper(Attack).png" id="6_12xag"]
+[ext_resource type="Texture2D" uid="uid://ca5a2csq6af4h" path="res://assets/controls/Helper(Movement).png" id="7_e2ky2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5j7kv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_fgg53"]
+[sub_resource type="Sky" id="Sky_cor3n"]
 sky_material = SubResource("ProceduralSkyMaterial_5j7kv")
 
 [sub_resource type="Environment" id="Environment_ilqkr"]
 background_mode = 2
-sky = SubResource("Sky_fgg53")
+sky = SubResource("Sky_cor3n")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux01q"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5mkt"]
 albedo_texture = ExtResource("2_wdu82")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5homw"]
-albedo_texture = ExtResource("1_4ar7c")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_h1xei"]
-material = SubResource("StandardMaterial3D_5homw")
+material = SubResource("StandardMaterial3D_w5mkt")
 size = Vector3(30, 1, 30)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y0jtv"]
@@ -98,14 +95,13 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-material_override = SubResource("StandardMaterial3D_ux01q")
 mesh = SubResource("BoxMesh_h1xei")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_y0jtv")
 
 [node name="Character" parent="." instance=ExtResource("2_cmry6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.52077, -0.751054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.52077, 6.01674)
 immobile = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -125,5 +121,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137639, 6.47502, -13.9051)
 libraries = {
 "": SubResource("AnimationLibrary_81p4q")
 }
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.888872, 0, 0.471488, 0, 1.00618, 0, -0.471488, 0, 0.888872, -17.5903, 4.77755, -8.1039)
+texture = ExtResource("6_12xag")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(0.835786, 0, -0.560229, 0, 1.00618, 0, 0.560229, 0, 0.835786, 18.8876, 5.3382, -9.51799)
+texture = ExtResource("7_e2ky2")
 
 [connection signal="timeout" from="BubbleSpawnTimer" to="." method="_on_bubble_spawn_timer_timeout"]

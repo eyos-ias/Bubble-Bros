@@ -93,7 +93,7 @@ var was_on_floor: bool = true # Was the player on the floor last frame (for land
 var RETICLE: Control
 
 # Get the gravity from the project settings to be synced with RigidBody nodes
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity") # Don't set this as a const, see the gravity section in _physics_process
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity") + 9.0 # Don't set this as a const, see the gravity section in _physics_process
 
 # Stores mouse input for rotating the camera in the phyhsics process
 var mouseInput: Vector2 = Vector2(0, 0)

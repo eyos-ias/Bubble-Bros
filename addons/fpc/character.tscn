@@ -357,11 +357,12 @@ MarginContainer/constants/margin_top = 10
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3in73"]
 properties/0/path = NodePath(".:position")
-properties/0/spawn = false
+properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH")]
 script = ExtResource("1_0t4e8")
+jump_velocity = 9.0
 default_reticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
 CAMERA = NodePath("Head/Camera")
