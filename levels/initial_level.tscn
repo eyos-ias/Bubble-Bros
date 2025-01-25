@@ -1,3 +1,125 @@
-[gd_scene format=3 uid="uid://dqd1uulboadvp"]
+[gd_scene load_steps=15 format=3 uid="uid://dqd1uulboadvp"]
+
+[ext_resource type="Texture2D" uid="uid://0pfy6ygjnslr" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_4ar7c"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_cmry6"]
+[ext_resource type="PackedScene" uid="uid://8wl0i5pu5lgl" path="res://scenes/bubble.tscn" id="3_0ss30"]
+[ext_resource type="Shader" path="res://addons/nojoule-energy-shield/shield.gdshader" id="4_jncsd"]
+[ext_resource type="Texture2D" uid="uid://dnqegf8mxqli" path="res://addons/nojoule-energy-shield/shield_noise.tres" id="5_tblml"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5j7kv"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_fgg53"]
+sky_material = SubResource("ProceduralSkyMaterial_5j7kv")
+
+[sub_resource type="Environment" id="Environment_ilqkr"]
+background_mode = 2
+sky = SubResource("Sky_fgg53")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_np8au"]
+albedo_texture = ExtResource("1_4ar7c")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_h1xei"]
+material = SubResource("StandardMaterial3D_np8au")
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y0jtv"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qd4a"]
+render_priority = 0
+shader = ExtResource("4_jncsd")
+shader_parameter/_quantization = true
+shader_parameter/_steps_quantization = 5
+shader_parameter/_object_scale = 1.0
+shader_parameter/_object_size = 1.1
+shader_parameter/_only_on_wave_visibility = false
+shader_parameter/_start_falloff_visibility = 0.5
+shader_parameter/_end_falloff_visibility = 0.3
+shader_parameter/_time_multiplier_activation = 1.0
+shader_parameter/_distance_multiplier_activation = 1.0
+shader_parameter/_width_time_activation = 1.0
+shader_parameter/_enable_highlight_intersection = true
+shader_parameter/_width_highlight_intersection = 1.0
+shader_parameter/_speed_noise = Vector2(0.02, 0.02)
+shader_parameter/_noise_texture = ExtResource("5_tblml")
+shader_parameter/_origin_generate = Vector3(0, 0.5, 0)
+shader_parameter/_relative_origin_generate = true
+shader_parameter/_time_generate = 1.0
+shader_parameter/_thickness_generate = 0.25
+shader_parameter/_collapse = false
+shader_parameter/_color_shield = Color(1, 1, 1, 1)
+shader_parameter/_color_brightness_shield = 15.0
+shader_parameter/_intensity_shield = 3.0
+shader_parameter/glow_enabled = true
+shader_parameter/glow_strength = 1.0
+shader_parameter/_active_static = true
+shader_parameter/_origin_static = Vector3(0.4, 0.4, 0)
+shader_parameter/_speed_static = 0.4
+shader_parameter/_frequency_static = 10.0
+shader_parameter/_amplitude_static = 0.05
+shader_parameter/_normal_amplitude_static = 0.05
+shader_parameter/_effect_radius_static = 2.0
+shader_parameter/_active_static_offset_hl = false
+shader_parameter/_strength_static_offset_hl = 1.0
+shader_parameter/_intensity_static_offset_hl = 5.0
+shader_parameter/_origin_impact = PackedVector3Array(0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/_time_impact = PackedFloat32Array(0, 0, 0, 0, 0)
+shader_parameter/_frequency_impact = 20.0
+shader_parameter/_waves_impact = 0.0
+shader_parameter/_fade_waves_impact = 2.0
+shader_parameter/_amplitude_impact = 0.05
+shader_parameter/_normal_amplitude_impact = 0.05
+shader_parameter/_radius_impact = 1.0
+shader_parameter/_active_impact_offset_hl = true
+shader_parameter/_strength_impact_offset_hl = 1.0
+shader_parameter/_intensity_impact_offset_hl = 5.0
+shader_parameter/_active_border = false
+shader_parameter/_intensity_border = 2.0
+shader_parameter/_percentage_border = 0.1
+shader_parameter/_show_normals = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_kscpq"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_8qd4a")
+rings = 256
+
+[sub_resource type="Curve" id="Curve_gv8lp"]
+resource_local_to_scene = true
+resource_name = "animation_curve"
+_data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="InitialLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ilqkr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, 0.0687223, 0.495255, 0.46231, -0.26722, 0.845496, 0.190446, 0.961182, 0.199648, 0, 24.5681, 0)
+light_energy = 1.3
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_h1xei")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_y0jtv")
+
+[node name="Character" parent="." instance=ExtResource("2_cmry6")]
+
+[node name="ShieldSphere2" parent="." instance=ExtResource("3_0ss30")]
+transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, 0, 1.44282, -8.32345)
+mesh = SubResource("SphereMesh_kscpq")
+animation_curve = SubResource("Curve_gv8lp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)
+current = true
