@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwk5tiod0vkh4"]
+
+[ext_resource type="Script" path="res://test_scene/basic_player.gd" id="1_bljh2"]
+[ext_resource type="Texture2D" uid="uid://blxkka0bgi8d8" path="res://icon.svg" id="1_js18k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ip2jv"]
+size = Vector2(106, 94)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mmu16"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = false
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:sprite")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="basic_player" type="CharacterBody2D"]
+script = ExtResource("1_bljh2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_js18k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ip2jv")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_mmu16")

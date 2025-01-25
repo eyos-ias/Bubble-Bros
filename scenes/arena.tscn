@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bsy4lc5xilygo"]
+
+[node name="Arena" type="Node3D"]
+
+[node name="SpawnRoot" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://addons/fpc/character.tscn", "res://scenes/bullet.tscn", "res://scenes/bubble.tscn")
+spawn_path = NodePath("../SpawnRoot")
