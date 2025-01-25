@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 
 
 func _on_join_pressed() -> void:
-	peer.create_client("localhost", 135)
+	peer.create_client("192.168.106.78", 135)
 	multiplayer.multiplayer_peer = peer
 
 func _on_host_pressed() -> void:
