@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsy4lc5xilygo"]
+[gd_scene load_steps=9 format=3 uid="uid://bsy4lc5xilygo"]
 
 [ext_resource type="Texture2D" uid="uid://cwe2q0y3sa1kj" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_2ih8y"]
 [ext_resource type="Script" path="res://scripts/arena.gd" id="1_f3kbh"]
-[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_mwvoe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x0fgg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -30,7 +29,6 @@ size = Vector3(30, 1, 30)
 
 [node name="Arena" type="Node3D"]
 script = ExtResource("1_f3kbh")
-player_scene = ExtResource("2_mwvoe")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vxd23")

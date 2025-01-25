@@ -20,7 +20,7 @@ extends CharacterBody3D
 ## How high the player jumps.
 @export var jump_velocity: float = 4.5
 ## How far the player turns when the mouse is moved.
-@export var mouse_sensitivity: float = 0.1
+@export var mouse_sensitivity: float = 0.05
 ## Invert the Y input for mouse and joystick
 @export var invert_mouse_y: bool = false # Possibly add an invert mouse X in the future
 ## Wether the player can use movement inputs. Does not stop outside forces or jumping. See Jumping Enabled.
@@ -125,10 +125,13 @@ func shoot_bullet():
 	# 	get_parent().add_child(bullet_instance)
 	# 	canShoot = false
 	# 	shootTimer.start()
-func _enter_tree():
-	set_multiplayer_authority(name.to_int())
+
+# func _enter_tree():
+# 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
+
+	# if not is_multiplayer_authority(): return
 	#It is safe to comment this line if your game doesn't start with the mouse captured
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -146,6 +149,7 @@ func _ready():
 	CROUCH_ANIMATION.play("RESET")
 	
 	check_controls()
+	CAMERA.current = true
 
 func check_controls(): # If you add a control, you might want to add a check for it here.
 	# The actions are being disabled so the engine doesn't halt the entire project in debug mode
@@ -185,9 +189,9 @@ func change_reticle(reticle): # Yup, this function is kinda strange
 
 
 func _physics_process(delta):
+	# if not is_multiplayer_authority(): return
 
-
-	if Input.is_action_just_released("shoot"):
+	if Input.is_action_just_pressed("shoot"):
 		print("shoot")
 		shoot_bullet()
 	# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
@@ -417,6 +421,7 @@ func _process(delta):
 
 
 func _unhandled_input(event: InputEvent):
+	# if not is_multiplayer_authority(): return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouseInput.x += event.relative.x
 		mouseInput.y += event.relative.y
