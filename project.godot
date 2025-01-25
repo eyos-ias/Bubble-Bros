@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 enabled=PackedStringArray("res://addons/wakatime/plugin.cfg")
 
+[global_group]
+
+bullet=""
+
 [input]
 
 forward={

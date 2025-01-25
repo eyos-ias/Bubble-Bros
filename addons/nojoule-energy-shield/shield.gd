@@ -259,3 +259,9 @@ func _on_area_3d_body_shape_entered(
 	if body_shape_entered_impact:
 		impact(body.global_position)
 	body_shape_entered.emit(body_rid, body, body_shape_index, local_shape_index)
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	print("bullet detected")
+	if area.is_in_group("bullet"):
+		queue_free()

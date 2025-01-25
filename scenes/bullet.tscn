@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://djy2c5avycr4j"]
+[gd_scene load_steps=6 format=3 uid="uid://djy2c5avycr4j"]
 
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_bddeg"]
 
@@ -13,6 +13,9 @@ albedo_color = Color(0.623758, 0, 0.0703107, 1)
 emission_enabled = true
 emission = Color(0.927651, 0.34378, 0.101099, 1)
 emission_energy_multiplier = 5.0
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xtcfk"]
+data = PackedVector3Array(-0.025, 0.025, 0.5, 0.025, 0.025, 0.5, -0.025, -0.025, 0.5, 0.025, 0.025, 0.5, 0.025, -0.025, 0.5, -0.025, -0.025, 0.5, 0.025, 0.025, -0.5, -0.025, 0.025, -0.5, 0.025, -0.025, -0.5, -0.025, 0.025, -0.5, -0.025, -0.025, -0.5, 0.025, -0.025, -0.5, 0.025, 0.025, 0.5, 0.025, 0.025, -0.5, 0.025, -0.025, 0.5, 0.025, 0.025, -0.5, 0.025, -0.025, -0.5, 0.025, -0.025, 0.5, -0.025, 0.025, -0.5, -0.025, 0.025, 0.5, -0.025, -0.025, -0.5, -0.025, 0.025, 0.5, -0.025, -0.025, 0.5, -0.025, -0.025, -0.5, 0.025, 0.025, 0.5, -0.025, 0.025, 0.5, 0.025, 0.025, -0.5, -0.025, 0.025, 0.5, -0.025, 0.025, -0.5, 0.025, 0.025, -0.5, -0.025, -0.025, 0.5, 0.025, -0.025, 0.5, -0.025, -0.025, -0.5, 0.025, -0.025, 0.5, 0.025, -0.025, -0.5, -0.025, -0.025, -0.5)
 
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_bddeg")
@@ -30,5 +33,10 @@ target_position = Vector3(0, 0, -1)
 wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="Area3D" type="Area3D" parent="." groups=["bullet"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConcavePolygonShape3D_xtcfk")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

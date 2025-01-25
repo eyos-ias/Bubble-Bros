@@ -122,4 +122,3 @@ animation_curve = SubResource("Curve_gv8lp")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)
-current = true

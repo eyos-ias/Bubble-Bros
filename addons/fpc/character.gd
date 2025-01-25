@@ -98,13 +98,32 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity") #
 # Stores mouse input for rotating the camera in the phyhsics process
 var mouseInput: Vector2 = Vector2(0, 0)
 
+# gun stuff
+
 @export var bullet_scene: PackedScene
 
+@onready var gun = $Head/Camera/Gun
+
+@onready var bulletSpawner = $Head/Camera/bulletSpawner
+@onready var shootTimer = $ShootTimer
+@onready var canShoot: bool = true
+
 func shoot_bullet():
-	if bullet_scene:
+	if bullet_scene and canShoot:
+		print("this is shooting")
 		var bullet_instance = bullet_scene.instantiate()
-		bullet_instance.global_transform = CAMERA.global_transform
+		bullet_instance.global_transform = bulletSpawner.global_transform
 		get_parent().add_child(bullet_instance)
+		canShoot = false
+		shootTimer.start()
+	## use this if the gun is the parent
+	# if bullet_scene and canShoot:
+	# 	var bullet_instance = bullet_scene.instantiate()
+	# 	bullet_instance.global_transform = gun.global_transform
+	# 	bullet_instance.rotate_y(deg_to_rad(-90))
+	# 	get_parent().add_child(bullet_instance)
+	# 	canShoot = false
+	# 	shootTimer.start()
 
 func _ready():
 	#It is safe to comment this line if your game doesn't start with the mouse captured
@@ -404,3 +423,8 @@ func _unhandled_input(event: InputEvent):
 			# Where we're going, we don't need InputMap
 			if event.keycode == 4194338: # F7
 				$UserInterface/DebugPanel.visible = !$UserInterface/DebugPanel.visible
+
+
+func _on_shoot_timer_timeout() -> void:
+	canShoot = true
+	print("can shoot")
