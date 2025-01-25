@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://crgxbpx1ywbaj"]
+
+[ext_resource type="Texture2D" uid="uid://cgtcqmvdchvsb" path="res://Bubble Sprites/bubbles.svg" id="1_3xg5u"]
+
+[node name="Bubble" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3xg5u")
+region_enabled = true
+region_rect = Rect2(14, 14, 132, 138)
