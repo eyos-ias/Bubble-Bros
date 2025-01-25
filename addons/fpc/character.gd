@@ -98,6 +98,14 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity") #
 # Stores mouse input for rotating the camera in the phyhsics process
 var mouseInput: Vector2 = Vector2(0, 0)
 
+@export var bullet_scene: PackedScene
+
+func shoot_bullet():
+	if bullet_scene:
+		var bullet_instance = bullet_scene.instantiate()
+		bullet_instance.global_transform = CAMERA.global_transform
+		get_parent().add_child(bullet_instance)
+
 func _ready():
 	#It is safe to comment this line if your game doesn't start with the mouse captured
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -155,6 +163,11 @@ func change_reticle(reticle): # Yup, this function is kinda strange
 
 
 func _physics_process(delta):
+
+
+	if Input.is_action_just_released("shoot"):
+		print("shoot")
+		shoot_bullet()
 	# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
 	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
 	$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
