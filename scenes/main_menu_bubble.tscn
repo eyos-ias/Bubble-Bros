@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvgl46uh16ffg"]
+[gd_scene load_steps=9 format=3 uid="uid://dumg77ync4d7a"]
 
 [ext_resource type="Shader" path="res://addons/nojoule-energy-shield/shield.gdshader" id="1_7rtvw"]
 [ext_resource type="Script" path="res://scripts/main_menu_bubble.gd" id="1_omv6v"]
@@ -62,6 +62,21 @@ resource_local_to_scene = true
 material = SubResource("ShaderMaterial_8qd4a")
 rings = 256
 
+[sub_resource type="Animation" id="Animation_561hl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShieldSphere2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_o880h"]
 resource_name = "bob_up_down"
 length = 1.8
@@ -77,21 +92,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.353553, 0.258817, 0.378929),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -0.3, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_561hl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ShieldSphere2:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wwg2p"]
