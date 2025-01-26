@@ -5,6 +5,11 @@
 
 extends CharacterBody3D
 
+#sfx files
+@onready var running_sfx: AudioStreamPlayer3D = $Running
+
+@onready var shooting_sfx: AudioStreamPlayer3D = $Shooting
+
 
 ## The settings for the character's movement and feel.
 @export_category("Character")
@@ -136,6 +141,7 @@ func shoot_bullet():
 		get_parent().add_child(bullet_instance)
 		# add_child(bullet_instance)
 		canShoot = false
+		
 		gun.get_node("AnimationPlayer").play("shoot")
 		
 		shootTimer.start()

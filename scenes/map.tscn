@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=4 uid="uid://crhwjysc7afhp"]
+[gd_scene load_steps=73 format=4 uid="uid://crhwjysc7afhp"]
 
 [ext_resource type="Texture2D" uid="uid://0pfy6ygjnslr" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_hor1h"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_r06mw"]
@@ -9,6 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://dbscx32ubunfy" path="res://assets/models/gameworld_Tile_11-256x256.png" id="3_f0brv"]
 [ext_resource type="Material" uid="uid://cldioc82m3isi" path="res://resources/jumpables.tres" id="5_xdwar"]
 [ext_resource type="Material" uid="uid://boruiv03ddptb" path="res://resources/slope.tres" id="7_tovfg"]
+[ext_resource type="Script" path="res://levels/initial_level.gd" id="10_mda4u"]
+[ext_resource type="PackedScene" uid="uid://8wl0i5pu5lgl" path="res://scenes/bubble.tscn" id="11_1n50e"]
+[ext_resource type="Texture2D" uid="uid://cwe2q0y3sa1kj" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="12_dttns"]
+[ext_resource type="Texture2D" uid="uid://f48a1prjfltp" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="13_eavb2"]
+[ext_resource type="Texture2D" uid="uid://dudbi5o1k85l0" path="res://assets/controls/Helper(Attack).png" id="14_hn0m8"]
+[ext_resource type="Texture2D" uid="uid://ca5a2csq6af4h" path="res://assets/controls/Helper(Movement).png" id="15_80h1y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ta0bu"]
 albedo_texture = ExtResource("1_hor1h")
@@ -536,6 +542,64 @@ sky = SubResource("Sky_llimv")
 fog_enabled = true
 fog_light_color = Color(0.133914, 0.170842, 0.231754, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5mkt"]
+albedo_texture = ExtResource("12_dttns")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_h1xei"]
+material = SubResource("StandardMaterial3D_w5mkt")
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y0jtv"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ke4qa"]
+albedo_texture = ExtResource("13_eavb2")
+emission_enabled = true
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_yea7f"]
+material = SubResource("StandardMaterial3D_ke4qa")
+size = Vector3(30, 14, 1)
+
+[sub_resource type="Animation" id="Animation_2d6m6"]
+resource_name = "BubbleHitFlash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.25116, 0.463996, 0.237494, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ijymp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_81p4q"]
+_data = {
+"BubbleHitFlash": SubResource("Animation_2d6m6"),
+"RESET": SubResource("Animation_ijymp")
+}
+
 [node name="Map" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209394, 0)
 script = ExtResource("1_r06mw")
@@ -789,5 +853,100 @@ text = "Host"
 layout_mode = 2
 text = "Join"
 
+[node name="InitialLevel" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 161.701)
+script = ExtResource("10_mda4u")
+bubble_scene = ExtResource("11_1n50e")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="InitialLevel"]
+transform = Transform3D(-0.866025, 0.0687223, 0.495255, 0.46231, -0.26722, 0.845496, 0.190446, 0.961182, 0.199648, 0, 24.5681, 0)
+light_energy = 1.3
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="InitialLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InitialLevel/StaticBody3D"]
+mesh = SubResource("BoxMesh_h1xei")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InitialLevel/StaticBody3D"]
+shape = SubResource("BoxShape3D_y0jtv")
+
+[node name="Camera3D" type="Camera3D" parent="InitialLevel"]
+transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InitialLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12877, -15.5825)
+mesh = SubResource("BoxMesh_yea7f")
+
+[node name="BubbleSpawnTimer" type="Timer" parent="InitialLevel"]
+wait_time = 1.6
+
+[node name="Marker3D" type="Marker3D" parent="InitialLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137639, 6.47502, -13.9051)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InitialLevel"]
+libraries = {
+"": SubResource("AnimationLibrary_81p4q")
+}
+
+[node name="Sprite3D" type="Sprite3D" parent="InitialLevel"]
+transform = Transform3D(0.888872, 0, 0.471488, 0, 1.00618, 0, -0.471488, 0, 0.888872, -17.5903, 4.77755, -8.1039)
+texture = ExtResource("14_hn0m8")
+
+[node name="Sprite3D2" type="Sprite3D" parent="InitialLevel"]
+transform = Transform3D(0.835786, 0, -0.560229, 0, 1.00618, 0, 0.560229, 0, 0.835786, 18.8876, 5.3382, -9.51799)
+texture = ExtResource("15_80h1y")
+
+[node name="InitialLevel2" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 129.251)
+script = ExtResource("10_mda4u")
+bubble_scene = ExtResource("11_1n50e")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="InitialLevel2"]
+transform = Transform3D(-0.866025, 0.0687223, 0.495255, 0.46231, -0.26722, 0.845496, 0.190446, 0.961182, 0.199648, 0, 24.5681, 0)
+light_energy = 1.3
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="InitialLevel2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InitialLevel2/StaticBody3D"]
+mesh = SubResource("BoxMesh_h1xei")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InitialLevel2/StaticBody3D"]
+shape = SubResource("BoxShape3D_y0jtv")
+
+[node name="Camera3D" type="Camera3D" parent="InitialLevel2"]
+transform = Transform3D(1, 0, 0, 0, 0.966537, 0.256526, 0, -0.256526, 0.966537, 0, 3.84126, 7.43127)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InitialLevel2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12877, -15.5825)
+mesh = SubResource("BoxMesh_yea7f")
+
+[node name="BubbleSpawnTimer" type="Timer" parent="InitialLevel2"]
+wait_time = 1.6
+
+[node name="Marker3D" type="Marker3D" parent="InitialLevel2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137639, 6.47502, -13.9051)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InitialLevel2"]
+libraries = {
+"": SubResource("AnimationLibrary_81p4q")
+}
+
+[node name="Sprite3D" type="Sprite3D" parent="InitialLevel2"]
+transform = Transform3D(0.888872, 0, 0.471488, 0, 1.00618, 0, -0.471488, 0, 0.888872, -17.5903, 4.77755, -8.1039)
+texture = ExtResource("14_hn0m8")
+
+[node name="Sprite3D2" type="Sprite3D" parent="InitialLevel2"]
+transform = Transform3D(0.835786, 0, -0.560229, 0, 1.00618, 0, 0.560229, 0, 0.835786, 18.8876, 5.3382, -9.51799)
+texture = ExtResource("15_80h1y")
+
+[node name="InitialStageCountDown" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="timeout" from="InitialLevel/BubbleSpawnTimer" to="InitialLevel" method="_on_bubble_spawn_timer_timeout"]
+[connection signal="timeout" from="InitialLevel2/BubbleSpawnTimer" to="InitialLevel2" method="_on_bubble_spawn_timer_timeout"]

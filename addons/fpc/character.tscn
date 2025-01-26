@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=30 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
 [ext_resource type="PackedScene" uid="uid://cxjmdduxhbcjj" path="res://scenes/gun.tscn" id="2_clwwo"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
 [ext_resource type="Texture2D" uid="uid://8djy415m321u" path="res://textures/bg.png" id="5_5882r"]
 [ext_resource type="Texture2D" uid="uid://d1h161t0v6hau" path="res://textures/red.png" id="6_tjek7"]
+[ext_resource type="AudioStream" uid="uid://b66noj71p5453" path="res://assets/audio/running.mp3" id="8_7cdek"]
+[ext_resource type="AudioStream" uid="uid://458pg4dw6lmu" path="res://assets/audio/Gunshot FX F Major.wav" id="9_nv7bw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0, 0, 1, 1)
@@ -512,5 +514,11 @@ one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_t7iyx")
+
+[node name="Running" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_7cdek")
+
+[node name="Shooting" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_nv7bw")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

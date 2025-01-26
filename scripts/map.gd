@@ -1,5 +1,14 @@
 extends Node3D
 
+#the players' properties 
+# base_speed sprint_speed acceleration
+# jump velocity double jump
+# raycast's length
+# fire rate
+@onready var clientInitialStage = $InitialLevel
+@onready var hostInitialStage = $InitialLevel2
+@onready var intialTimer = $InitialStageCountDown
+@onready var gameWorld = $gameworld
 var enet_peer = ENetMultiplayerPeer.new()
 const player_scene = preload("res://addons/fpc/character.tscn")
 @onready var canvas_layer = $CanvasLayer
