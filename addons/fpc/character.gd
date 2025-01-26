@@ -110,7 +110,7 @@ var mouseInput: Vector2 = Vector2(0, 0)
 
 func shoot_bullet():
 	if bullet_scene and canShoot:
-		print("this is shooting")
+		# print("this is shooting")
 		var bullet_instance = bullet_scene.instantiate()
 		bullet_instance.global_transform = bulletSpawner.global_transform
 		get_parent().add_child(bullet_instance)
@@ -126,12 +126,14 @@ func shoot_bullet():
 	# 	canShoot = false
 	# 	shootTimer.start()
 
-# func _enter_tree():
-# 	set_multiplayer_authority(str(name).to_int())
+@onready var synchronizer = $MultiplayerSynchronizer
+
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
-
-	# if not is_multiplayer_authority(): return
+	synchronizer.set_multiplayer_authority(str(name).to_int())
+	if not is_multiplayer_authority(): return
 	#It is safe to comment this line if your game doesn't start with the mouse captured
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -189,57 +191,57 @@ func change_reticle(reticle): # Yup, this function is kinda strange
 
 
 func _physics_process(delta):
-	# if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority(): return
+	if synchronizer.is_multiplayer_authority():
+		if Input.is_action_just_pressed("shoot"):
+			print("shoot")
+			shoot_bullet()
+		# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
+		current_speed = Vector3.ZERO.distance_to(get_real_velocity())
+		$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
+		$UserInterface/DebugPanel.add_property("Target speed", speed, 2)
+		var cv: Vector3 = get_real_velocity()
+		var vd: Array[float] = [
+			snappedf(cv.x, 0.001),
+			snappedf(cv.y, 0.001),
+			snappedf(cv.z, 0.001)
+		]
+		var readable_velocity: String = "X: " + str(vd[0]) + " Y: " + str(vd[1]) + " Z: " + str(vd[2])
+		$UserInterface/DebugPanel.add_property("Velocity", readable_velocity, 3)
+		
+		# Gravity
+		#gravity = ProjectSettings.get_setting("physics/3d/default_gravity") # If the gravity changes during your game, uncomment this code
+		if not is_on_floor() and gravity and gravity_enabled:
+			velocity.y -= gravity * delta
+		
+		handle_jumping()
+		
+		var input_dir = Vector2.ZERO
+		if !immobile: # Immobility works by interrupting user input, so other forces can still be applied to the player
+			input_dir = Input.get_vector(LEFT, RIGHT, FORWARD, BACKWARD)
+		handle_movement(delta, input_dir)
 
-	if Input.is_action_just_pressed("shoot"):
-		print("shoot")
-		shoot_bullet()
-	# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
-	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
-	$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
-	$UserInterface/DebugPanel.add_property("Target speed", speed, 2)
-	var cv: Vector3 = get_real_velocity()
-	var vd: Array[float] = [
-		snappedf(cv.x, 0.001),
-		snappedf(cv.y, 0.001),
-		snappedf(cv.z, 0.001)
-	]
-	var readable_velocity: String = "X: " + str(vd[0]) + " Y: " + str(vd[1]) + " Z: " + str(vd[2])
-	$UserInterface/DebugPanel.add_property("Velocity", readable_velocity, 3)
-	
-	# Gravity
-	#gravity = ProjectSettings.get_setting("physics/3d/default_gravity") # If the gravity changes during your game, uncomment this code
-	if not is_on_floor() and gravity and gravity_enabled:
-		velocity.y -= gravity * delta
-	
-	handle_jumping()
-	
-	var input_dir = Vector2.ZERO
-	if !immobile: # Immobility works by interrupting user input, so other forces can still be applied to the player
-		input_dir = Input.get_vector(LEFT, RIGHT, FORWARD, BACKWARD)
-	handle_movement(delta, input_dir)
-
-	handle_head_rotation()
-	
-	# The player is not able to stand up if the ceiling is too low
-	low_ceiling = $CrouchCeilingDetection.is_colliding()
-	
-	handle_state(input_dir)
-	if dynamic_fov: # This may be changed to an AnimationPlayer
-		update_camera_fov()
-	
-	if view_bobbing:
-		headbob_animation(input_dir)
-	
-	if jump_animation:
-		if !was_on_floor and is_on_floor(): # The player just landed
-			match randi() % 2: # TODO: Change this to detecting velocity direction
-				0:
-					JUMP_ANIMATION.play("land_left", 0.25)
-				1:
-					JUMP_ANIMATION.play("land_right", 0.25)
-	
-	was_on_floor = is_on_floor() # This must always be at the end of physics_process
+		handle_head_rotation()
+		
+		# The player is not able to stand up if the ceiling is too low
+		low_ceiling = $CrouchCeilingDetection.is_colliding()
+		
+		handle_state(input_dir)
+		if dynamic_fov: # This may be changed to an AnimationPlayer
+			update_camera_fov()
+		
+		if view_bobbing:
+			headbob_animation(input_dir)
+		
+		if jump_animation:
+			if !was_on_floor and is_on_floor(): # The player just landed
+				match randi() % 2: # TODO: Change this to detecting velocity direction
+					0:
+						JUMP_ANIMATION.play("land_left", 0.25)
+					1:
+						JUMP_ANIMATION.play("land_right", 0.25)
+		
+		was_on_floor = is_on_floor() # This must always be at the end of physics_process
 
 
 func handle_jumping():
@@ -257,44 +259,46 @@ func handle_jumping():
 
 
 func handle_movement(delta, input_dir):
-	var direction = input_dir.rotated(-HEAD.rotation.y)
-	direction = Vector3(direction.x, 0, direction.y)
-	move_and_slide()
-	
-	if in_air_momentum:
-		if is_on_floor():
+	if synchronizer.is_multiplayer_authority():
+		var direction = input_dir.rotated(-HEAD.rotation.y)
+		direction = Vector3(direction.x, 0, direction.y)
+		move_and_slide()
+		
+		if in_air_momentum:
+			if is_on_floor():
+				if motion_smoothing:
+					velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
+					velocity.z = lerp(velocity.z, direction.z * speed, acceleration * delta)
+				else:
+					velocity.x = direction.x * speed
+					velocity.z = direction.z * speed
+		else:
 			if motion_smoothing:
 				velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
 				velocity.z = lerp(velocity.z, direction.z * speed, acceleration * delta)
 			else:
 				velocity.x = direction.x * speed
 				velocity.z = direction.z * speed
-	else:
-		if motion_smoothing:
-			velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
-			velocity.z = lerp(velocity.z, direction.z * speed, acceleration * delta)
-		else:
-			velocity.x = direction.x * speed
-			velocity.z = direction.z * speed
 
 func handle_head_rotation():
-	HEAD.rotation_degrees.y -= mouseInput.x * mouse_sensitivity
-	if invert_mouse_y:
-		HEAD.rotation_degrees.x -= mouseInput.y * mouse_sensitivity * -1.0
-	else:
-		HEAD.rotation_degrees.x -= mouseInput.y * mouse_sensitivity
-	
-	# Uncomment for controller support
-	#var controller_view_rotation = Input.get_vector(LOOK_DOWN, LOOK_UP, LOOK_RIGHT, LOOK_LEFT) * controller_sensitivity # These are inverted because of the nature of 3D rotation.
-	#HEAD.rotation.x += controller_view_rotation.x
-	#if invert_mouse_y:
-		#HEAD.rotation.y += controller_view_rotation.y * -1.0
-	#else:
-		#HEAD.rotation.y += controller_view_rotation.y
-	
-	
-	mouseInput = Vector2(0, 0)
-	HEAD.rotation.x = clamp(HEAD.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+	if synchronizer.is_multiplayer_authority():
+		HEAD.rotation_degrees.y -= mouseInput.x * mouse_sensitivity
+		if invert_mouse_y:
+			HEAD.rotation_degrees.x -= mouseInput.y * mouse_sensitivity * -1.0
+		else:
+			HEAD.rotation_degrees.x -= mouseInput.y * mouse_sensitivity
+		
+		# Uncomment for controller support
+		#var controller_view_rotation = Input.get_vector(LOOK_DOWN, LOOK_UP, LOOK_RIGHT, LOOK_LEFT) * controller_sensitivity # These are inverted because of the nature of 3D rotation.
+		#HEAD.rotation.x += controller_view_rotation.x
+		#if invert_mouse_y:
+			#HEAD.rotation.y += controller_view_rotation.y * -1.0
+		#else:
+			#HEAD.rotation.y += controller_view_rotation.y
+		
+		
+		mouseInput = Vector2(0, 0)
+		HEAD.rotation.x = clamp(HEAD.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 
 func handle_state(moving):
@@ -421,7 +425,7 @@ func _process(delta):
 
 
 func _unhandled_input(event: InputEvent):
-	# if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority(): return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouseInput.x += event.relative.x
 		mouseInput.y += event.relative.y
