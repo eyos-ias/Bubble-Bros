@@ -107,7 +107,9 @@ var mouseInput: Vector2 = Vector2(0, 0)
 @onready var bulletSpawner = $Head/Camera/bulletSpawner
 @onready var shootTimer = $ShootTimer
 @onready var canShoot: bool = true
+@onready var isInStatLevel: bool = false
 
+@rpc("call_local")
 func shoot_bullet():
 	if bullet_scene and canShoot:
 		# print("this is shooting")
@@ -195,7 +197,7 @@ func _physics_process(delta):
 	if synchronizer.is_multiplayer_authority():
 		if Input.is_action_just_pressed("shoot"):
 			print("shoot")
-			shoot_bullet()
+			shoot_bullet.rpc()
 		# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
 		current_speed = Vector3.ZERO.distance_to(get_real_velocity())
 		$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)

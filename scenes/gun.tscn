@@ -136,6 +136,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_c35me")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g8m6"]
+albedo_color = Color(0.91674, 0.427917, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgp0u"]
 albedo_color = Color(0.381703, 0.381703, 0.381703, 1)
@@ -145,7 +146,7 @@ albedo_color = Color(0.585062, 0.585062, 0.585062, 1)
 metallic = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0yt6"]
-albedo_color = Color(0.306923, 0.306923, 0.306923, 1)
+albedo_color = Color(0.305882, 0.305882, 0.305882, 1)
 
 [sub_resource type="Animation" id="Animation_i0bg1"]
 length = 0.001

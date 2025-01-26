@@ -5,7 +5,8 @@ extends Node3D
 @onready var mesh = $MeshInstance3D
 @onready var ray = $RayCast3D
 
-signal give_stat (stat_type: int)
+signal give_stat(stat_type: int)
+signal enemy_hit(enemy)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,3 +25,8 @@ func _on_timer_timeout() -> void:
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	pass # Replace with function body.
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if (body.is_in_group("player")):
+		print("print player hit")
