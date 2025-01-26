@@ -1,0 +1,134 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3q6lropliylh"]
+
+[ext_resource type="VideoStream" path="res://assets/videos/looping intro.ogv" id="1_3m1hr"]
+[ext_resource type="FontFile" uid="uid://d03xamg14bly5" path="res://assets/fonts/SixtyfourConvergence-Regular.ttf" id="1_wo3wx"]
+[ext_resource type="PackedScene" uid="uid://dvgl46uh16ffg" path="res://scenes/main_menu_bubble.tscn" id="2_odb53"]
+
+[sub_resource type="FontVariation" id="FontVariation_prs12"]
+base_font = ExtResource("1_wo3wx")
+
+[sub_resource type="FontVariation" id="FontVariation_hsmpe"]
+base_font = ExtResource("1_wo3wx")
+
+[sub_resource type="Environment" id="Environment_abiki"]
+background_mode = 1
+background_color = Color(0.511457, 0.716536, 0.820864, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ak266"]
+size = Vector2(19.2, 10.8)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ud1nf"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6fao0"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_ud1nf")
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -196.0
+offset_right = 304.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_prs12")
+theme_override_font_sizes/font_size = 60
+text = "The Bubble Boys"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 4.0
+offset_right = 136.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_hsmpe")
+theme_override_font_sizes/font_size = 30
+text = "Play"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_abiki")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="MainMenuBubble" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.55661, 0, -2.75254)
+
+[node name="MainMenuBubble2" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575209, 0.566442, -2.75254)
+
+[node name="MainMenuBubble3" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.41408, -0.681053, -7.61259)
+
+[node name="MainMenuBubble4" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29906, 0.566442, -7.61259)
+
+[node name="MainMenuBubble6" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.22846, -0.463899, -7.61259)
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79426, -1.89592, 0)
+
+[node name="MainMenuBubble8" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36947, -1.32948, -3.46481)
+
+[node name="MainMenuBubble9" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38018, -2.57697, -7.61259)
+
+[node name="MainMenuBubble10" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.564358, -1.32948, -2.85437)
+
+[node name="MainMenuBubble11" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.62842, -2.35982, -7.61259)
+
+[node name="MainMenuBubble7" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53003, 0.792041, -9.88346)
+
+[node name="MainMenuBubble5" parent="." instance=ExtResource("2_odb53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.357424, 0.314198, -11.4356)
+
+[node name="TV" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, -13.5626)
+mesh = SubResource("PlaneMesh_ak266")
+surface_material_override/0 = SubResource("StandardMaterial3D_6fao0")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1920, 1080)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubViewport/SubViewportContainer"]
+layout_mode = 2
+stream = ExtResource("1_3m1hr")
+volume_db = -80.0
+autoplay = true
+loop = true
