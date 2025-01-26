@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=37 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
 [ext_resource type="PackedScene" uid="uid://cxjmdduxhbcjj" path="res://scenes/gun.tscn" id="2_clwwo"]
@@ -441,9 +441,13 @@ tracks/1/keys = {
 "values": [Color(1, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_56oyp"]
+resource_name = "death"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_opm30"]
 _data = {
 "RESET": SubResource("Animation_vdh5d"),
+"death": SubResource("Animation_56oyp"),
 "hurt": SubResource("Animation_y4al1")
 }
 
