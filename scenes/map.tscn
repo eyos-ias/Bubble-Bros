@@ -1,11 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://crhwjysc7afhp"]
 
 [ext_resource type="PackedScene" uid="uid://cj313s8wd18x5" path="res://assets/models/gameworld.glb" id="1_mrqca"]
-[ext_resource type="PackedScene" uid="uid://bbnlhdoahameo" path="res://assets/models/arena.fbx" id="2_pyvs0"]
+[ext_resource type="PackedScene" uid="uid://bpo8t4orr6byl" path="res://assets/models/arena.glb" id="2_4wq4y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fhcpe"]
-sky_top_color = Color(0.557753, 0.41079, 0.336266, 1)
-sky_horizon_color = Color(0.54577, 0.37734, 0.255661, 1)
+sky_top_color = Color(0.316956, 0.529504, 0.717915, 1)
+sky_horizon_color = Color(0.278506, 0.437833, 0.568275, 1)
+ground_bottom_color = Color(0.278431, 0.439216, 0.568627, 1)
+ground_horizon_color = Color(0.278431, 0.439216, 0.568627, 1)
 sun_angle_max = 244.93
 
 [sub_resource type="Sky" id="Sky_llimv"]
@@ -14,16 +16,71 @@ sky_material = SubResource("ProceduralSkyMaterial_fhcpe")
 [sub_resource type="Environment" id="Environment_iwxkt"]
 background_mode = 2
 sky = SubResource("Sky_llimv")
+fog_enabled = true
+fog_light_color = Color(0.133914, 0.170842, 0.231754, 1)
 
 [node name="Map" type="Node3D"]
 
 [node name="gameworld" parent="." instance=ExtResource("1_mrqca")]
 
-[node name="arena" parent="." instance=ExtResource("2_pyvs0")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1.76012, 0)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_iwxkt")
 
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_iwxkt")
+[node name="arena2" parent="." instance=ExtResource("2_4wq4y")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -2.65662, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.158778, -0.166366, 0.973197, -0.00213204, 0.985641, 0.168842, -0.987312, -0.0288833, 0.156143, 85.8202, 42.5369, -7.52831)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.788139, 0.0125447, 0.61537, -0.364471, 0.815168, 0.45018, -0.495983, -0.579088, 0.647038, 27.6899, 22.1481, 26.7543)
+light_color = Color(0.605155, 0.650647, 0.854318, 1)
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 73.3919
+spot_angle = 19.596
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.426358, -0.575864, 0.697567, -0.364471, 0.815168, 0.45018, -0.827877, -0.0623045, -0.557439, 28.9162, 22.1481, -27.9749)
+light_color = Color(0.605155, 0.650647, 0.854318, 1)
+light_energy = 8.724
+shadow_enabled = true
+spot_range = 73.3919
+spot_angle = 19.596
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.703845, 0.0753834, -0.706342, -0.364471, 0.815168, 0.45018, 0.609724, 0.574298, -0.546277, -26.7182, 22.1481, -27.9749)
+light_color = Color(0.605155, 0.650647, 0.854318, 1)
+light_energy = 12.034
+shadow_enabled = true
+spot_range = 73.3919
+spot_angle = 19.596
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="."]
+transform = Transform3D(0.498511, 0.579126, -0.645058, -0.364471, 0.815168, 0.45018, 0.786542, 0.010685, 0.617445, -28.1844, 22.1481, 27.5652)
+light_color = Color(0.605155, 0.650647, 0.854318, 1)
+light_energy = 12.034
+shadow_enabled = true
+spot_range = 73.3919
+spot_angle = 19.596
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6266, 6.89232, -12.9471)
+light_color = Color(0.538224, 0.742212, 0.909029, 1)
+light_energy = 16.0
+shadow_enabled = true
+omni_range = 22.5208
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.39397, 6.89232, 3.28898)
+light_color = Color(0.538224, 0.742212, 0.909029, 1)
+light_energy = 16.0
+shadow_enabled = true
+omni_range = 22.5208
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6646, 7.70067, -1.38751)
+light_color = Color(0.538224, 0.742212, 0.909029, 1)
+light_energy = 16.0
+shadow_enabled = true
+omni_range = 22.5208
