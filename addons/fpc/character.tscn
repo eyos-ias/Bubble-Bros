@@ -1,8 +1,9 @@
-[gd_scene load_steps=48 format=4 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=49 format=4 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
 [ext_resource type="PackedScene" uid="uid://cxjmdduxhbcjj" path="res://scenes/gun.tscn" id="2_clwwo"]
 [ext_resource type="PackedScene" uid="uid://djy2c5avycr4j" path="res://scenes/bullet.tscn" id="2_lducf"]
+[ext_resource type="PackedScene" uid="uid://vkp627djx6ly" path="res://scenes/new_bubble/arena_bubble.tscn" id="2_p5s1o"]
 [ext_resource type="Script" path="res://addons/fpc/EditorModule.gd" id="3_v3ckk"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
 [ext_resource type="Texture2D" uid="uid://8djy415m321u" path="res://textures/bg.png" id="5_5882r"]
@@ -517,6 +518,9 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("Head/Camera:rotation")
 properties/4/spawn = false
 properties/4/replication_mode = 1
+properties/5/path = NodePath("Head:position")
+properties/5/spawn = false
+properties/5/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7b4l"]
 bg_color = Color(0, 0.369132, 3.85046e-07, 1)
@@ -612,6 +616,7 @@ HEADBOB_ANIMATION = NodePath("Head/HeadbobAnimation")
 JUMP_ANIMATION = NodePath("Head/JumpAnimation")
 CROUCH_ANIMATION = NodePath("CrouchAnimation")
 COLLISION_MESH = NodePath("Collision")
+bubble_scene = ExtResource("2_p5s1o")
 bullet_scene = ExtResource("2_lducf")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]

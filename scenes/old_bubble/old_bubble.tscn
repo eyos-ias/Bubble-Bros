@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://8wl0i5pu5lgl"]
+
+[ext_resource type="Shader" path="res://addons/nojoule-energy-shield/shield.gdshader" id="1_toct0"]
+[ext_resource type="Texture2D" uid="uid://dnqegf8mxqli" path="res://addons/nojoule-energy-shield/shield_noise.tres" id="2_fhgvn"]
+[ext_resource type="Script" path="res://addons/nojoule-energy-shield/shield.gd" id="3_w4apx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qd4a"]
+render_priority = 0
+shader = ExtResource("1_toct0")
+shader_parameter/_quantization = true
+shader_parameter/_steps_quantization = 5
+shader_parameter/_object_scale = 1.0
+shader_parameter/_object_size = 1.1
+shader_parameter/_only_on_wave_visibility = false
+shader_parameter/_start_falloff_visibility = 0.5
+shader_parameter/_end_falloff_visibility = 0.3
+shader_parameter/_time_multiplier_activation = 1.0
+shader_parameter/_distance_multiplier_activation = 1.0
+shader_parameter/_width_time_activation = 1.0
+shader_parameter/_enable_highlight_intersection = true
+shader_parameter/_width_highlight_intersection = 1.0
+shader_parameter/_speed_noise = Vector2(0.02, 0.02)
+shader_parameter/_noise_texture = ExtResource("2_fhgvn")
+shader_parameter/_origin_generate = Vector3(0, 0.5, 0)
+shader_parameter/_relative_origin_generate = true
+shader_parameter/_time_generate = 1.0
+shader_parameter/_thickness_generate = 0.25
+shader_parameter/_collapse = false
+shader_parameter/_color_shield = Color(1, 1, 1, 1)
+shader_parameter/_color_brightness_shield = 15.0
+shader_parameter/_intensity_shield = 3.0
+shader_parameter/glow_enabled = true
+shader_parameter/glow_strength = 1.0
+shader_parameter/_active_static = true
+shader_parameter/_origin_static = Vector3(0.4, 0.4, 0)
+shader_parameter/_speed_static = 0.4
+shader_parameter/_frequency_static = 10.0
+shader_parameter/_amplitude_static = 0.05
+shader_parameter/_normal_amplitude_static = 0.05
+shader_parameter/_effect_radius_static = 2.0
+shader_parameter/_active_static_offset_hl = false
+shader_parameter/_strength_static_offset_hl = 1.0
+shader_parameter/_intensity_static_offset_hl = 5.0
+shader_parameter/_origin_impact = PackedVector3Array(0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/_time_impact = PackedFloat32Array(0, 0, 0, 0, 0)
+shader_parameter/_frequency_impact = 20.0
+shader_parameter/_waves_impact = 0.0
+shader_parameter/_fade_waves_impact = 2.0
+shader_parameter/_amplitude_impact = 0.05
+shader_parameter/_normal_amplitude_impact = 0.05
+shader_parameter/_radius_impact = 1.0
+shader_parameter/_active_impact_offset_hl = true
+shader_parameter/_strength_impact_offset_hl = 1.0
+shader_parameter/_intensity_impact_offset_hl = 5.0
+shader_parameter/_active_border = false
+shader_parameter/_intensity_border = 2.0
+shader_parameter/_percentage_border = 0.1
+shader_parameter/_show_normals = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_n6kln"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_8qd4a")
+rings = 256
+
+[sub_resource type="Curve" id="Curve_l06v0"]
+resource_local_to_scene = true
+resource_name = "animation_curve"
+_data = [Vector2(0, 0), 0.0, 2.60088, 0, 0, Vector2(0.473684, 0.656832), 0.0, 0.0, 0, 0, Vector2(0.996183, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1ncxy"]
+
+[node name="ShieldSphere2" type="MeshInstance3D"]
+transform = Transform3D(1.00199, 0, 0, 0, 1, 0, 0, 0, 1.00199, 0, 0, 0)
+mesh = SubResource("SphereMesh_n6kln")
+skeleton = NodePath("../..")
+script = ExtResource("3_w4apx")
+animation_curve = SubResource("Curve_l06v0")
+split_front_back = true
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_1ncxy")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 1.4
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]

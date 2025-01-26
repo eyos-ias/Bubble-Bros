@@ -5,7 +5,7 @@
 [ext_resource type="Shader" path="res://addons/nojoule-energy-shield/shield.gdshader" id="2_u8gy5"]
 [ext_resource type="PackedScene" uid="uid://bqo3es5yd4r70" path="res://addons/nojoule-energy-shield/shield_sphere.tscn" id="3_twgkm"]
 [ext_resource type="Texture2D" uid="uid://dnqegf8mxqli" path="res://addons/nojoule-energy-shield/shield_noise.tres" id="4_cgev7"]
-[ext_resource type="PackedScene" uid="uid://8wl0i5pu5lgl" path="res://scenes/bubble.tscn" id="6_vcmta"]
+[ext_resource type="PackedScene" uid="uid://8wl0i5pu5lgl" path="res://scenes/old_bubble/old_bubble.tscn" id="6_vcmta"]
 
 [sub_resource type="Environment" id="Environment_nl0ma"]
 background_mode = 1

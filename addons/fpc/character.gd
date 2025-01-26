@@ -87,6 +87,8 @@ extends CharacterBody3D
 ## Use with caution.
 @export var gravity_enabled: bool = true
 
+@export var bubble_scene: PackedScene
+
 
 # Member variables
 var speed: float = base_speed
@@ -167,7 +169,17 @@ func shoot_bullet():
 	# 	get_parent().add_child(bullet_instance)
 	# 	canShoot = false
 	# 	shootTimer.start()
-
+@rpc("call_local")
+func leave_bubble():
+	print("bubble left")
+	if bubble_scene:
+		var bubble_instance = bubble_scene.instantiate()
+		bubble_instance.global_transform.origin = Vector3(
+			randf_range(-15, 15),
+			10,
+			randf_range(-15, 15)
+		)
+		get_parent().get_parent().add_child(bubble_instance)
 
 func _ready():
 
@@ -242,7 +254,9 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("shoot") and canShoot:
 			print("shoot")
 			shoot_bullet.rpc()
+			leave_bubble.rpc()
 			if raycast.is_colliding():
+				
 				print("raycast colliding desu")
 				var hit_player = raycast.get_collider()
 				print("left health", hit_player.health)
