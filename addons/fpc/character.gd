@@ -123,18 +123,20 @@ var is_client: bool = false
 
 @onready var mesh1 = $Mesh
 @onready var mesh2 = $Mesh2
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 @rpc("any_peer")
 func receive_damage():
+	animation_player.play("hurt")
 	health -= 1
 	if health <= 0:
 		health = 3
 		death_sfx.play()
 		position = Vector3(0, 1, 0)
-		
+
 
 @rpc("call_local")
 func shoot_bullet():
