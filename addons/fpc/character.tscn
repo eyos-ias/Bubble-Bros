@@ -373,8 +373,16 @@ properties/4/spawn = false
 properties/4/replication_mode = 1
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH")]
+collision_layer = 2
 script = ExtResource("1_0t4e8")
+base_speed = null
+sprint_speed = null
+crouch_speed = null
+acceleration = null
 jump_velocity = 9.0
+mouse_sensitivity = null
+invert_mouse_y = null
+immobile = null
 default_reticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
 CAMERA = NodePath("Head/Camera")
@@ -382,6 +390,27 @@ HEADBOB_ANIMATION = NodePath("Head/HeadbobAnimation")
 JUMP_ANIMATION = NodePath("Head/JumpAnimation")
 CROUCH_ANIMATION = NodePath("CrouchAnimation")
 COLLISION_MESH = NodePath("Collision")
+JUMP = null
+LEFT = null
+RIGHT = null
+FORWARD = null
+BACKWARD = null
+PAUSE = null
+CROUCH = null
+SPRINT = null
+jumping_enabled = null
+in_air_momentum = null
+motion_smoothing = null
+sprint_enabled = null
+crouch_enabled = null
+crouch_mode = null
+sprint_mode = null
+dynamic_fov = null
+continuous_jumping = null
+view_bobbing = null
+jump_animation = null
+pausing_enabled = null
+gravity_enabled = null
 bullet_scene = ExtResource("2_lducf")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
@@ -410,6 +439,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.007)
 
 [node name="Marker3D" type="Marker3D" parent="Head/Camera/bulletSpawner"]
 
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+target_position = Vector3(0, 1, 30)
+collision_mask = 2
+
 [node name="HeadbobAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 "": SubResource("AnimationLibrary_o0unb")
@@ -432,6 +466,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0

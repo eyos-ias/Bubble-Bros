@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsy4lc5xilygo"]
+[gd_scene load_steps=9 format=3 uid="uid://bsy4lc5xilygo"]
 
 [ext_resource type="Texture2D" uid="uid://cwe2q0y3sa1kj" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_2ih8y"]
 [ext_resource type="Script" path="res://scripts/arena.gd" id="1_f3kbh"]
-[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="3_55mj7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x0fgg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -78,10 +77,6 @@ text = "Host"
 [node name="Join" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "Join"
-
-[node name="Character" parent="." groups=["player"] instance=ExtResource("3_55mj7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-immobile = true
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Join" to="." method="_on_join_pressed"]

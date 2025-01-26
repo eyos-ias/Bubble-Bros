@@ -108,6 +108,13 @@ var mouseInput: Vector2 = Vector2(0, 0)
 @onready var shootTimer = $ShootTimer
 @onready var canShoot: bool = true
 @onready var isInStatLevel: bool = false
+@onready var rayCast = $Head/Camera/RayCast3D
+@onready var synchronizer = $MultiplayerSynchronizer
+
+var health = 4
+
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
 
 @rpc("call_local")
 func shoot_bullet():
@@ -116,8 +123,11 @@ func shoot_bullet():
 		var bullet_instance = bullet_scene.instantiate()
 		bullet_instance.global_transform = bulletSpawner.global_transform
 		get_parent().add_child(bullet_instance)
+		# add_child(bullet_instance)
 		canShoot = false
 		gun.get_node("AnimationPlayer").play("shoot")
+		if rayCast.is_colliding():
+			print("raycast colliding desu")
 		shootTimer.start()
 	## use this if the gun is the parent
 	# if bullet_scene and canShoot:
@@ -127,11 +137,6 @@ func shoot_bullet():
 	# 	get_parent().add_child(bullet_instance)
 	# 	canShoot = false
 	# 	shootTimer.start()
-
-@onready var synchronizer = $MultiplayerSynchronizer
-
-func _enter_tree():
-	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
 	synchronizer.set_multiplayer_authority(str(name).to_int())
