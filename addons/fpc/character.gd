@@ -124,6 +124,7 @@ var is_client: bool = false
 @onready var mesh1 = $Mesh
 @onready var mesh2 = $Mesh2
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player_2: AnimationPlayer = $AnimationPlayer2
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -131,6 +132,7 @@ func _enter_tree():
 @rpc("any_peer")
 func receive_damage():
 
+	animation_player_2.play("hurt")
 	health -= 1
 	if health <= 0:
 		health = 3
@@ -138,7 +140,7 @@ func receive_damage():
 		# position = Vector3(0, 1, 0)
 		position = Vector3(
 			randf_range(-15, 15),
-			40,
+			60,
 			randf_range(-15, 15)
 		)
 
@@ -245,8 +247,11 @@ func _physics_process(delta):
 				var hit_player = raycast.get_collider()
 				print("left health", hit_player.health)
 				var hit_player_peer_id = hit_player.get_multiplayer_authority()
-				hit_player.receive_damage.rpc_id(hit_player_peer_id)
 				hit_player.animation_player.play("hurt")
+				#hit_player.mesh2.visible = true
+				#hit_player.mesh1.visible = false
+				hit_player.receive_damage.rpc_id(hit_player_peer_id)
+				
 				print("hit player: diying", hit_player)
 		# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
 		current_speed = Vector3.ZERO.distance_to(get_real_velocity())

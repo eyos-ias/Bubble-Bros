@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=40 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
 [ext_resource type="PackedScene" uid="uid://cxjmdduxhbcjj" path="res://scenes/gun.tscn" id="2_clwwo"]
@@ -393,25 +393,13 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Mesh:mesh:material:albedo_color")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0, 0, 1, 1), Color(1, 0, 0, 1), Color(0, 0, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.766667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0.454902), Color(1, 0, 0, 0)]
+"values": [Color(1, 0, 0, 1), Color(0, 0, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_vdh5d"]
@@ -428,18 +416,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(0, 0, 1, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_56oyp"]
 resource_name = "death"
@@ -449,6 +425,43 @@ _data = {
 "RESET": SubResource("Animation_vdh5d"),
 "death": SubResource("Animation_56oyp"),
 "hurt": SubResource("Animation_y4al1")
+}
+
+[sub_resource type="Animation" id="Animation_dshel"]
+resource_name = "hurt"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0.34902), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jbgxo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_05a85"]
+_data = {
+"RESET": SubResource("Animation_jbgxo"),
+"hurt": SubResource("Animation_dshel")
 }
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH")]
@@ -614,6 +627,11 @@ fill_mode = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_opm30")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_05a85")
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
