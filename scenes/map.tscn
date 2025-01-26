@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=4 uid="uid://crhwjysc7afhp"]
+[gd_scene load_steps=74 format=4 uid="uid://ip1ult4fhxrr"]
 
 [ext_resource type="Texture2D" uid="uid://0pfy6ygjnslr" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_hor1h"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_r06mw"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://f48a1prjfltp" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="13_eavb2"]
 [ext_resource type="Texture2D" uid="uid://dudbi5o1k85l0" path="res://assets/controls/Helper(Attack).png" id="14_hn0m8"]
 [ext_resource type="Texture2D" uid="uid://ca5a2csq6af4h" path="res://assets/controls/Helper(Movement).png" id="15_80h1y"]
+[ext_resource type="PackedScene" uid="uid://c0uuhsm8tdq7q" path="res://scenes/rising.tscn" id="16_py37n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ta0bu"]
 albedo_texture = ExtResource("1_hor1h")
@@ -606,6 +607,7 @@ script = ExtResource("1_r06mw")
 
 [node name="gameworld" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+visible = false
 
 [node name="entity0_brush0" type="MeshInstance3D" parent="gameworld"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
@@ -621,6 +623,7 @@ shape = SubResource("ConcavePolygonShape3D_7fltb")
 
 [node name="entity0_brush1" type="MeshInstance3D" parent="gameworld"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+visible = false
 material_override = ExtResource("3_1cmro")
 mesh = SubResource("ArrayMesh_dy4cp")
 skeleton = NodePath("")
@@ -631,7 +634,7 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_uilfp")
 
 [node name="entity0_brush10" type="MeshInstance3D" parent="gameworld"]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+transform = Transform3D(0.999726, 0, 0.0234027, 0.0234027, 0, -0.999726, 0, 1, 0, 0, 0, 0)
 material_override = ExtResource("5_xdwar")
 mesh = SubResource("ArrayMesh_1hj3s")
 skeleton = NodePath("")
@@ -676,6 +679,7 @@ shape = SubResource("ConcavePolygonShape3D_jqy85")
 
 [node name="entity0_brush2" type="MeshInstance3D" parent="gameworld"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+visible = false
 material_override = ExtResource("3_1cmro")
 mesh = SubResource("ArrayMesh_584sv")
 skeleton = NodePath("")
@@ -687,6 +691,7 @@ shape = SubResource("ConcavePolygonShape3D_67fea")
 
 [node name="entity0_brush3" type="MeshInstance3D" parent="gameworld"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+visible = false
 material_override = ExtResource("3_1cmro")
 mesh = SubResource("ArrayMesh_b10wp")
 skeleton = NodePath("")
@@ -698,6 +703,7 @@ shape = SubResource("ConcavePolygonShape3D_syhlb")
 
 [node name="entity0_brush4" type="MeshInstance3D" parent="gameworld"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+visible = false
 material_override = ExtResource("3_1cmro")
 mesh = SubResource("ArrayMesh_507pl")
 skeleton = NodePath("")
@@ -945,6 +951,8 @@ texture = ExtResource("15_80h1y")
 
 [node name="InitialStageCountDown" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="rising" parent="." instance=ExtResource("16_py37n")]
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Join" to="." method="_on_join_pressed"]
