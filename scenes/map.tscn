@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://crhwjysc7afhp"]
+
+[ext_resource type="PackedScene" uid="uid://cj313s8wd18x5" path="res://assets/models/gameworld.glb" id="1_mrqca"]
+[ext_resource type="PackedScene" uid="uid://bbnlhdoahameo" path="res://assets/models/arena.fbx" id="2_pyvs0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fhcpe"]
+sky_top_color = Color(0.557753, 0.41079, 0.336266, 1)
+sky_horizon_color = Color(0.54577, 0.37734, 0.255661, 1)
+sun_angle_max = 244.93
+
+[sub_resource type="Sky" id="Sky_llimv"]
+sky_material = SubResource("ProceduralSkyMaterial_fhcpe")
+
+[sub_resource type="Environment" id="Environment_iwxkt"]
+background_mode = 2
+sky = SubResource("Sky_llimv")
+
+[node name="Map" type="Node3D"]
+
+[node name="gameworld" parent="." instance=ExtResource("1_mrqca")]
+
+[node name="arena" parent="." instance=ExtResource("2_pyvs0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1.76012, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iwxkt")
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iwxkt")
