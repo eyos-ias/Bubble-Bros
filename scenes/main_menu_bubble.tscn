@@ -1,0 +1,117 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvgl46uh16ffg"]
+
+[ext_resource type="Shader" path="res://addons/nojoule-energy-shield/shield.gdshader" id="1_7rtvw"]
+[ext_resource type="Script" path="res://scripts/main_menu_bubble.gd" id="1_omv6v"]
+[ext_resource type="Texture2D" uid="uid://dnqegf8mxqli" path="res://addons/nojoule-energy-shield/shield_noise.tres" id="2_s8kue"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qd4a"]
+render_priority = 0
+shader = ExtResource("1_7rtvw")
+shader_parameter/_quantization = true
+shader_parameter/_steps_quantization = 5
+shader_parameter/_object_scale = 1.0
+shader_parameter/_object_size = 1.1
+shader_parameter/_only_on_wave_visibility = false
+shader_parameter/_start_falloff_visibility = 0.5
+shader_parameter/_end_falloff_visibility = 0.3
+shader_parameter/_time_multiplier_activation = 1.0
+shader_parameter/_distance_multiplier_activation = 1.0
+shader_parameter/_width_time_activation = 1.0
+shader_parameter/_enable_highlight_intersection = true
+shader_parameter/_width_highlight_intersection = 1.0
+shader_parameter/_speed_noise = Vector2(0.02, 0.02)
+shader_parameter/_noise_texture = ExtResource("2_s8kue")
+shader_parameter/_origin_generate = Vector3(0, 0.5, 0)
+shader_parameter/_relative_origin_generate = true
+shader_parameter/_time_generate = 1.0
+shader_parameter/_thickness_generate = 0.25
+shader_parameter/_collapse = false
+shader_parameter/_color_shield = Color(1, 1, 1, 1)
+shader_parameter/_color_brightness_shield = 15.0
+shader_parameter/_intensity_shield = 3.0
+shader_parameter/glow_enabled = true
+shader_parameter/glow_strength = 1.0
+shader_parameter/_active_static = true
+shader_parameter/_origin_static = Vector3(0.4, 0.4, 0)
+shader_parameter/_speed_static = 0.4
+shader_parameter/_frequency_static = 10.0
+shader_parameter/_amplitude_static = 0.05
+shader_parameter/_normal_amplitude_static = 0.05
+shader_parameter/_effect_radius_static = 2.0
+shader_parameter/_active_static_offset_hl = false
+shader_parameter/_strength_static_offset_hl = 1.0
+shader_parameter/_intensity_static_offset_hl = 5.0
+shader_parameter/_origin_impact = PackedVector3Array(0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/_time_impact = PackedFloat32Array(0, 0, 0, 0, 0)
+shader_parameter/_frequency_impact = 20.0
+shader_parameter/_waves_impact = 0.0
+shader_parameter/_fade_waves_impact = 2.0
+shader_parameter/_amplitude_impact = 0.05
+shader_parameter/_normal_amplitude_impact = 0.05
+shader_parameter/_radius_impact = 1.0
+shader_parameter/_active_impact_offset_hl = true
+shader_parameter/_strength_impact_offset_hl = 1.0
+shader_parameter/_intensity_impact_offset_hl = 5.0
+shader_parameter/_active_border = false
+shader_parameter/_intensity_border = 2.0
+shader_parameter/_percentage_border = 0.1
+shader_parameter/_show_normals = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_n6kln"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_8qd4a")
+rings = 256
+
+[sub_resource type="Animation" id="Animation_o880h"]
+resource_name = "bob_up_down"
+length = 1.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShieldSphere2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.76667),
+"transitions": PackedFloat32Array(0.353553, 0.258817, 0.378929),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.3, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_561hl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShieldSphere2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwg2p"]
+_data = {
+"RESET": SubResource("Animation_561hl"),
+"bob_up_down": SubResource("Animation_o880h")
+}
+
+[node name="MainMenuBubble" type="Node3D"]
+script = ExtResource("1_omv6v")
+
+[node name="ShieldSphere2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_n6kln")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wwg2p")
+}
+
+[node name="AnimStartTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="AnimStartTimer" to="." method="_on_anim_start_timer_timeout"]
