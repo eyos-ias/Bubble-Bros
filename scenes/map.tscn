@@ -1,6 +1,7 @@
-[gd_scene load_steps=58 format=4 uid="uid://crhwjysc7afhp"]
+[gd_scene load_steps=59 format=4 uid="uid://crhwjysc7afhp"]
 
 [ext_resource type="Texture2D" uid="uid://0pfy6ygjnslr" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_hor1h"]
+[ext_resource type="Script" path="res://scripts/map.gd" id="1_r06mw"]
 [ext_resource type="Texture2D" uid="uid://3s781cf0arr7" path="res://assets/models/gameworld_Tile_12-256x256.png" id="1_r316i"]
 [ext_resource type="PackedScene" uid="uid://bpo8t4orr6byl" path="res://assets/models/arena.glb" id="2_4wq4y"]
 [ext_resource type="Texture2D" uid="uid://yh1hcr7fdyev" path="res://assets/models/gameworld_Bricks_07-256x256.png" id="2_dbjud"]
@@ -537,6 +538,7 @@ fog_light_color = Color(0.133914, 0.170842, 0.231754, 1)
 
 [node name="Map" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209394, 0)
+script = ExtResource("1_r06mw")
 
 [node name="gameworld" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
@@ -598,7 +600,7 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_j1nb7")
 
 [node name="entity0_brush13" type="MeshInstance3D" parent="gameworld"]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -13.5006, 0, -15.509)
 material_override = ExtResource("5_xdwar")
 mesh = SubResource("ArrayMesh_28vev")
 skeleton = NodePath("")
@@ -757,3 +759,35 @@ light_color = Color(0.538224, 0.742212, 0.909029, 1)
 light_energy = 16.0
 shadow_enabled = true
 omni_range = 22.5208
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://addons/fpc/character.tscn", "res://scenes/bullet.tscn", "res://scenes/bubble.tscn")
+spawn_path = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -33.0
+offset_right = 22.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Host" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Join" to="." method="_on_join_pressed"]

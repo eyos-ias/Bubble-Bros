@@ -108,13 +108,24 @@ var mouseInput: Vector2 = Vector2(0, 0)
 @onready var shootTimer = $ShootTimer
 @onready var canShoot: bool = true
 @onready var isInStatLevel: bool = false
-@onready var rayCast = $Head/Camera/RayCast3D
+@onready var raycast = $Head/Camera/RayCast3D
 @onready var synchronizer = $MultiplayerSynchronizer
 
-var health = 4
+var health = 3
+var is_client: bool = false
+
+@onready var mesh1 = $Mesh
+@onready var mesh2 = $Mesh2
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
+
+@rpc("any_peer")
+func receive_damage():
+	health -= 1
+	if health <= 0:
+		health = 3
+		position = Vector3(0, 1, 0)
 
 @rpc("call_local")
 func shoot_bullet():
@@ -126,8 +137,7 @@ func shoot_bullet():
 		# add_child(bullet_instance)
 		canShoot = false
 		gun.get_node("AnimationPlayer").play("shoot")
-		if rayCast.is_colliding():
-			print("raycast colliding desu")
+		
 		shootTimer.start()
 	## use this if the gun is the parent
 	# if bullet_scene and canShoot:
@@ -138,7 +148,10 @@ func shoot_bullet():
 	# 	canShoot = false
 	# 	shootTimer.start()
 
+
 func _ready():
+
+
 	synchronizer.set_multiplayer_authority(str(name).to_int())
 	if not is_multiplayer_authority(): return
 	#It is safe to comment this line if your game doesn't start with the mouse captured
@@ -158,6 +171,12 @@ func _ready():
 	CROUCH_ANIMATION.play("RESET")
 	
 	check_controls()
+	if (is_client):
+		$Mesh2.visible = false
+		$Mesh.visible = true
+	else:
+		$Mesh2.visible = true
+		$Mesh.visible = false
 	CAMERA.current = true
 
 func check_controls(): # If you add a control, you might want to add a check for it here.
@@ -200,9 +219,16 @@ func change_reticle(reticle): # Yup, this function is kinda strange
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
 	if synchronizer.is_multiplayer_authority():
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_just_pressed("shoot") and canShoot:
 			print("shoot")
 			shoot_bullet.rpc()
+			if raycast.is_colliding():
+				print("raycast colliding desu")
+				var hit_player = raycast.get_collider()
+				print("left health", hit_player.health)
+				var hit_player_peer_id = hit_player.get_multiplayer_authority()
+				hit_player.receive_damage.rpc_id(hit_player_peer_id)
+				print("hit player: diying", hit_player)
 		# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
 		current_speed = Vector3.ZERO.distance_to(get_real_velocity())
 		$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)

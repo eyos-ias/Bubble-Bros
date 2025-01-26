@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=28 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
 [ext_resource type="PackedScene" uid="uid://cxjmdduxhbcjj" path="res://scenes/gun.tscn" id="2_clwwo"]
@@ -9,12 +9,18 @@
 [ext_resource type="Texture2D" uid="uid://d1h161t0v6hau" path="res://textures/red.png" id="6_tjek7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
-albedo_color = Color(0.909804, 0.596078, 0, 1)
+albedo_color = Color(0, 0, 1, 1)
 clearcoat_enabled = true
 clearcoat_roughness = 0.2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jw1de"]
 material = SubResource("StandardMaterial3D_kp17n")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nymct"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h14cc"]
+material = SubResource("StandardMaterial3D_nymct")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uy03j"]
 
@@ -375,14 +381,7 @@ properties/4/replication_mode = 1
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH")]
 collision_layer = 2
 script = ExtResource("1_0t4e8")
-base_speed = null
-sprint_speed = null
-crouch_speed = null
-acceleration = null
 jump_velocity = 9.0
-mouse_sensitivity = null
-invert_mouse_y = null
-immobile = null
 default_reticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
 CAMERA = NodePath("Head/Camera")
@@ -390,32 +389,16 @@ HEADBOB_ANIMATION = NodePath("Head/HeadbobAnimation")
 JUMP_ANIMATION = NodePath("Head/JumpAnimation")
 CROUCH_ANIMATION = NodePath("CrouchAnimation")
 COLLISION_MESH = NodePath("Collision")
-JUMP = null
-LEFT = null
-RIGHT = null
-FORWARD = null
-BACKWARD = null
-PAUSE = null
-CROUCH = null
-SPRINT = null
-jumping_enabled = null
-in_air_momentum = null
-motion_smoothing = null
-sprint_enabled = null
-crouch_enabled = null
-crouch_mode = null
-sprint_mode = null
-dynamic_fov = null
-continuous_jumping = null
-view_bobbing = null
-jump_animation = null
-pausing_enabled = null
-gravity_enabled = null
 bullet_scene = ExtResource("2_lducf")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_jw1de")
+
+[node name="Mesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_h14cc")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

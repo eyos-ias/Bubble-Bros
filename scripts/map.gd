@@ -3,6 +3,7 @@ extends Node3D
 var enet_peer = ENetMultiplayerPeer.new()
 const player_scene = preload("res://addons/fpc/character.tscn")
 @onready var canvas_layer = $CanvasLayer
+var is_client: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -14,6 +15,7 @@ func _process(delta: float) -> void:
 
 
 func _on_join_pressed() -> void:
+	is_client = true
 	canvas_layer.visible = false
 	enet_peer.create_client("192.168.0.104", 135)
 	multiplayer.multiplayer_peer = enet_peer
@@ -22,6 +24,7 @@ func _on_join_pressed() -> void:
 	# multiplayer.multiplayer_peer = peer
 
 func _on_host_pressed() -> void:
+	is_client = false
 	canvas_layer.visible = false
 	enet_peer.create_server(135)
 	multiplayer.multiplayer_peer = enet_peer
@@ -30,5 +33,6 @@ func _on_host_pressed() -> void:
 
 func add_player(peer_id):
 	var player = player_scene.instantiate()
+	player.is_client = is_client
 	player.name = str(peer_id)
 	add_child(player)
