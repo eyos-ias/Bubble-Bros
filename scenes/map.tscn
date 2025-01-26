@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://f48a1prjfltp" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="13_eavb2"]
 [ext_resource type="Texture2D" uid="uid://dudbi5o1k85l0" path="res://assets/controls/Helper(Attack).png" id="14_hn0m8"]
 [ext_resource type="Texture2D" uid="uid://ca5a2csq6af4h" path="res://assets/controls/Helper(Movement).png" id="15_80h1y"]
-[ext_resource type="PackedScene" uid="uid://c0uuhsm8tdq7q" path="res://scenes/rising.tscn" id="16_py37n"]
+[ext_resource type="PackedScene" path="res://scenes/rising.tscn" id="16_py37n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ta0bu"]
 albedo_texture = ExtResource("1_hor1h")

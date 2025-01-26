@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://yg7fq02dxtuj"
-path="res://.godot/imported/capsule.glb-b57ee733720c599030b9a5429a6a7ad6.scn"
+uid="uid://clf7mc2drktc7"
+path="res://.godot/imported/cylinder.glb-30eb58d3bf06829f06e48c7b729299b2.scn"
 
 [deps]
 
-source_file="res://assets/models/capsule.glb"
-dest_files=["res://.godot/imported/capsule.glb-b57ee733720c599030b9a5429a6a7ad6.scn"]
+source_file="res://assets/models/cylinder.glb"
+dest_files=["res://.godot/imported/cylinder.glb-30eb58d3bf06829f06e48c7b729299b2.scn"]
 
 [params]
 
