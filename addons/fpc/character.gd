@@ -7,8 +7,10 @@ extends CharacterBody3D
 
 #sfx files
 @onready var running_sfx: AudioStreamPlayer3D = $Running
+@onready var health_bar: ProgressBar = $HealthBar
 
 @onready var shooting_sfx: AudioStreamPlayer3D = $Shooting
+@onready var death_sfx: AudioStreamPlayer3D = $death
 
 
 ## The settings for the character's movement and feel.
@@ -130,12 +132,15 @@ func receive_damage():
 	health -= 1
 	if health <= 0:
 		health = 3
+		death_sfx.play()
 		position = Vector3(0, 1, 0)
+		
 
 @rpc("call_local")
 func shoot_bullet():
 	if bullet_scene and canShoot:
 		# print("this is shooting")
+		shooting_sfx.play()
 		var bullet_instance = bullet_scene.instantiate()
 		bullet_instance.global_transform = bulletSpawner.global_transform
 		get_parent().add_child(bullet_instance)
@@ -388,12 +393,14 @@ func handle_state(moving):
 func enter_normal_state():
 	#print("entering normal state")
 	var prev_state = state
+	running_sfx.stop()
 	if prev_state == "crouching":
 		CROUCH_ANIMATION.play_backwards("crouch")
 	state = "normal"
 	speed = base_speed
 
 func enter_crouch_state():
+	running_sfx.stop()
 	#print("entering crouch state")
 	var prev_state = state
 	state = "crouching"
@@ -406,6 +413,7 @@ func enter_sprint_state():
 	if prev_state == "crouching":
 		CROUCH_ANIMATION.play_backwards("crouch")
 	state = "sprinting"
+	running_sfx.play()
 	speed = sprint_speed
 
 

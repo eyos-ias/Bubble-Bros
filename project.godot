@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="GlobalGameJam"
-run/main_scene="res://levels/initial_level.tscn"
+run/main_scene="res://scenes/arena.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://scripts/global.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/wakatime/plugin.cfg")
 
 [global_group]
 
