@@ -42,7 +42,7 @@ shadow_enabled = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://addons/fpc/character.tscn", "res://scenes/bullet.tscn", "res://scenes/bubble.tscn")
-spawn_path = NodePath("../SpawnRoot")
+spawn_path = NodePath("..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
