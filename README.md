@@ -25,15 +25,15 @@ The gun's damage and other player stats can be set during the initial phase
 [*Replace these with games capturing the same vibe/style as your game*]
 <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
     <div style="text-align: center;">
-        <img src="reference_art/ultra_kill.png" alt="Ultrakill" style="width: 300px;"/>
+        <img src="reference_art/ultra_kill.png" alt="Ultrakill" style="width: 150px;"/>
         <p>Movement inspired by Ultrakill</p>
     </div>
     <div style="text-align: center;">
-        <img src="reference_art/bubbles.png" alt="Bubbles" style="width: 300px;"/>
+        <img src="reference_art/bubbles.png" alt="Bubbles" style="width:150px;"/>
         <p>Bubbles will be similar to Sabaody Archipelago in One Piece</p>
     </div>
     <div style="text-align: center;">
-        <img src="reference_art/deagle.png" alt="Deagle" style="width: 300px;"/>
+        <img src="reference_art/deagle.png" alt="Deagle" style="width:150px;"/>
         <p>Deagle</p>
     </div>
 </div>
