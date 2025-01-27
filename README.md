@@ -1,67 +1,54 @@
-# quality-godot-first-person-2
-Actually good first person controller for the Godot Engine.  
-MIT License (credit Colormatic Studios)
+# Bubble Bros (GGJ 2025)
+## Executive Pitch
+[*A short, 2-3 sentence long pitch about your grame, comparable to your short description on Steam*]
 
-This first person controller was made because there aren't many first person controllers for Godot, and the ones that do exist are pretty bad.  
-It is highly customizable and comes with many features, QOL, and clean code.
+Bubble Bros is a local multiplayer fps game, where you set your stats in a "bubble shooting" stage.
+## Mechanics
+[*What are the key things a player will be doing? What is part of the core gameplay loop?*]
+* Stamina based movement, with limited jumps, wall jumps and dashes
+The gun's damage and other player stats can be set during the initial phase
+* There will be two "bubble shooting" stages to increase your stats, one during the match. The second one during half time.
+* Not doing something stupid like going into the water with a "don't go inside the water" sign next to it.
+## Unique Selling Points
+[What are your hooks? What makes your game special? Why should people play your game instead?]
+* LAN-First Design, solves issues of high latency and unstable internet.
+* Optimized for low-spec PCs.
+* Designed with Sub-Saharan Africa in mind, where reliable servers, fast internet and PCs with cutting edge specs are often unavailable.
+## Story
+[*If your game has a narrative, give a high-level breakdown of key story beats here*]
+* No story...yet
+## Objectives
+[*What's the end goal? Is the player working towards something?*]
+* Earn as many kills as possible (its a best of 10)
+* Increase your stats, and experiment with new builds
+# Reference art
+[*Replace these with games capturing the same vibe/style as your game*]
+<div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+    <div style="text-align: center;">
+        <img src="reference_art/ultra_kill.png" alt="Ultrakill" style="width: 300px;"/>
+        <p>Movement inspired by Ultrakill</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="reference_art/bubbles.png" alt="Bubbles" style="width: 300px;"/>
+        <p>Bubbles will be similar to Sabaody Archipelago in One Piece</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="reference_art/deagle.png" alt="Deagle" style="width: 300px;"/>
+        <p>Deagle</p>
+    </div>
+</div>
 
-Some parts came from StayAtHomeDev's FPS tutorial. You can find that [here](https://www.youtube.com/playlist?list=PLEHvj4yeNfeF6s-UVs5Zx5TfNYmeCiYwf).
 
-# Directions
-Move with WASD, space to jump, shift to sprint, C to crouch.
+# How to Play
+- Connect two devices to the same Wi-Fi, ideally a hotspot.
+- Run `ipconfig` on the host's PC.
+- Get the host's IP address (the number next to "IPv4 Address") and input it into the client's text field.
+- Make sure the host starts the game by clicking "Host".
+- The client can then click "Join".
+- GL HF.
 
-**FEATURES:**
-- Extremely configurable
-- In-air momentum
-- Motion smoothing
-- FOV smoothing
-- Movement animations
-- Crouching
-- Sprinting
-- 2 crosshairs/reticles, one is animated (more to come?)
-- Controller/GamePad support (enabled through code, see wiki)
-- In-editor tools (enable editable children to use)
+# Screenshots
+![alt text](screenshots/photo_2025-01-27_06-42-20.jpg)![alt text](screenshots/photo_2025-01-27_06-42-22.jpg)![alt text](screenshots/photo_2025-01-27_06-42-23.jpg) ![alt text](screenshots/photo_2025-01-27_06-42-25.jpg) ![alt text](screenshots/photo_2025-01-27_06-42-27.jpg)
 
-If you make a cool game with this addon, I would love to hear about it!
 
-# Wiki
-**To start out**, you should probably remap all of the movement keys to your own control set.
-
-You can make this a super basic controller by just disabling everything.
-
-**How to add controller/GamePad support**  
-- In the controls export group, there is a commented section at the end that says "Uncomment this if you want full controller support". Uncomment that block.
-- Make a key map for each direction (left, right, up, down) and map them to your joystick.
-- Write in these keymaps in the controls section of the player settings.
-- In the `handle_head_rotation` function, there is another block of commented code that says the same thing. Uncomment that too.
-- You should now be able to look around with the joystick. Make sure you add the other controls to the input map. (movement, jumping, crouching, sprinting, etc.)
-
-**Slope/staircase:**   
-Credit to @roberto-urbani23  
-In the character inspector, you can uncheck Stop on Slope and set the max angle to 89 (for some reason, 90 will make the player stuck). Also Snap Length to 1 otherwise your character will not remain attached to stairs if you sprint while going downstairs.
-
-**How to change settings:**  
-Click on the character node and there should be settings in the "Feature Settings" group.
-
-**How to add animations for a mesh:**  
-- Create a function for your animation and attach it to `_physics_process` to call it every frame.
-- Use `input_dir` as a boolean (it is actually a `Vector2`) to know if the player is walking.
-- Use the `state` member variable to tell if the player is sprinting or crouching.
-- Use the `is_on_floor` function to tell if the player is standing or falling.
-
-**How to change reticles (crosshairs):**  
-Change the "Default Reticle" setting to your reticle file.  
-During runtime:  
-Use the `change_reticle` function on the character.
-
-**How to create a new reticle:**  
-- Choose a reticle to base it off of.
-- Open that reticle and save it as a new reticle.
-- Remove the script from the reticle and create a new one. (for some reason you have to do this)
-- Edit the reticle to your needs.
-- Follow the "how to change reticles" directions to use it.
-
-**How to use the editor tools:**  
-- Enable editable children on the `CharacterBody` node
-- Use the options in the Properties tab to change things
-- These changes apply in runtime as well
+[Game Design Document Template We Used for Our Game](https://youtu.be/xUo0rL2c_LQ?si=-42V7zEGyIX9KOd7)
